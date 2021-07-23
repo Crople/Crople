@@ -21,13 +21,13 @@ public class UserRepositoryTests {
     @Test
     public void insertUsers(){
         //testuser1 ~ testuser100 생성하는 코드
-//        IntStream.rangeClosed(1, 100).forEach(i -> {
-//            User user = User.builder()
-//                    .email("testuser" + i + "@test.com")
-//                    .pw("password")
-//                    .nickname("testuser" + i).build();
-//            userRepository.save(user);
-//        });
+        IntStream.rangeClosed(1, 100).forEach(i -> {
+            User user = User.builder()
+                    .email("testuser" + i + "@test.com")
+                    .pw("password")
+                    .nickname("testuser" + i).build();
+            userRepository.save(user);
+        });
     }
 
     @Commit
