@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="setContent(content)">
+    <head>
+
+        <head>
+
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="description" content="">
+            <meta name="author" content="">
+
+            <title>Simple Sidebar - Start Bootstrap Template</title>
+
+            <title>Simple Sidebar - Start Bootstrap Template</title>
+
+            <!-- Bootstrap core CSS -->
+            <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+            <!-- Custom styles for this template -->
+            <link th:href="@{/css/simple-sidebar.css}" rel="stylesheet">
+
+            <!-- Bootstrap core JavaScript -->
+            <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+            <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+        </head>
+
+    <body>
+
+    <div class="d-flex" id="wrapper">
+
+        <!-- Sidebar -->
+        <div class="bg-light border-right" id="sidebar-wrapper">
+            <div class="sidebar-heading">Start Bootstrap </div>
+            <div class="list-group list-group-flush">
+                <a href="#" class="list-group-item list-group-item-action bg-light">Dashboard</a>
+                <a href="#" class="list-group-item list-group-item-action bg-light">Shortcuts</a>
+                <a href="#" class="list-group-item list-group-item-action bg-light">Overview</a>
+                <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
+                <a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
+                <a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Dropdown
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="container-fluid">
+
+                <h1 class="mt-4">Place List Page
+                    <span>
+                <a th:href="@{/place/register}">
+                    <button type="button" class="btn btn-outline-primary">REGISTER
+                    </button>
+                </a>
+            </span></h1>
+
+                <table class="table table-striped">
+
+                    <thead>
+                    <tr>
+                        <th scope="col">name & photo</th>
+                        <th scope="col">address</th>
+                        <th scope="col">tel</th>
+                        <th scope="col">Review</th>
+                        <th scope="col">AVG Rating</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+
+                    <tr th:each="dto : ${result.dtoList}" >
+                        <th scope="row">
+                        <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null }"
+                                 th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" >
+                            <a th:href="@{/place/read(placeId = ${dto.placeId}, page=${result.page})}">
+                            [[${dto.name}]]</a>
+                        </th>
+                        <td scope="row">[[${dto.address}]]</td>
+                        <td scope="row">[[${dto.tel}]]</td>
+                        <td scope="row">[[${dto.reviewCnt}]]</td>
+                        <td scope="row">[[${dto.avg}]]</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <ul class="pagination h-100 justify-content-center align-items-center">
+
+                    <li class="page-item " th:if="${result.prev}">
+                        <a class="page-link" th:href="@{/place/list(page= ${result.start -1})}" tabindex="-1">Previous</a>
+                    </li>
+
+                    <li th:class=" 'page-item ' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
+                        <a class="page-link" th:href="@{/place/list(page = ${page})}">
+                            [[${page}]]
+                        </a>
+                    </li>
+
+                    <li class="page-item" th:if="${result.next}">
+                        <a class="page-link" th:href="@{/place/list(page= ${result.end + 1} )}">Next</a>
+                    </li>
+                </ul>
+
+                <script th:inline="javascript">
+
+                </script>
+
+            </div>
+
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+
+
+
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle").click(function(e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script>
+
+    </body>
+</th:block>
+</html>
+
