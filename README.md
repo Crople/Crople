@@ -12,6 +12,15 @@
 9. user 테이블에 testuser1 ~ testuser100 있는지 확인      
 10. localhost:8080/place/list에서 장소 등록, 리뷰 작성해보기     
 
+업로드 경로 변경(윈도우)
+// application.properties     
+spring.servlet.multipart.location=C:\\upload      
+com.sswu.upload.path = C:\\upload     
+
+// UpdateController     
+@Value("C:\\upload")      
+private String uploadPath;      
+
 
 ### ❗️ git 주의사항
 자신의 이름과 동일한 브랜치 생성하기    
