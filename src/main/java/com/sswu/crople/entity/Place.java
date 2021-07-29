@@ -15,7 +15,7 @@ import javax.persistence.Id;
 @ToString
 public class Place{
 
-    @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long placeId;
 
     private String name;
