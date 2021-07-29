@@ -1,61 +1,47 @@
 package com.sswu.crople.controller;
 
+import com.sswu.crople.dto.PageRequestDTO;
 import com.sswu.crople.dto.ReviewDTO;
 import com.sswu.crople.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.List;
-
-// /reviews에 대한 요청을 처리하는 컨트롤러
-@RestController
-@RequestMapping("/reviews")
+@Controller
+@RequestMapping("/place/review")
 @Log4j2
 @RequiredArgsConstructor
 public class ReviewController {
 
     private final ReviewService reviewService;
 
-    // placeId에 해당하는 place의 모든 review를 반환하는 메서드
-    @GetMapping("/{placeId}/all")
-    public ResponseEntity<List<ReviewDTO>> getList(@PathVariable("placeId") Long placeId){
-        log.info("=================list=======================");
-        log.info("PlaceId: " + placeId);
+    private long placeId;
+    private int page;
 
-        List<ReviewDTO> reviewDTOList = reviewService.getListOfPlace(placeId);
+    @GetMapping("/register")
+    public void reviewRegister(long placeId, int page, Model model){
+        log.info("ReviewsController의 register 메소드-----------------placeId : " + placeId + ", page : " + page);
 
-        return new ResponseEntity<>(reviewDTOList, HttpStatus.OK);
+        this.placeId = placeId;
+        this.page = page;
+
+        model.addAttribute("placeId", placeId);
     }
 
-    // review를 등록하는 메서드
-    @PostMapping("/{placeId}")
-    public ResponseEntity<Long> addReview(@RequestBody ReviewDTO placeReviewDTO){
-        log.info("--------------add PlaceReview-----------------");
-        log.info("reviewDTO: " + placeReviewDTO);
+    @PostMapping("/register")
+    public RedirectView reviewRegister(ReviewDTO reviewDTO, RedirectAttributes redirectAttributes){
+        log.info("reviewDTO: " + reviewDTO);
 
-        Long reviewId = reviewService.register(placeReviewDTO);
+        // PlaceService의 register 메소드를 이용해 place를 등록
+        Long reviewId = reviewService.register(reviewDTO);
 
-        return new ResponseEntity<>(reviewId, HttpStatus.OK);
-    }
+        redirectAttributes.addFlashAttribute("msg", reviewId);
 
-    // review를 수정하는 메서드
-    @PutMapping("/{placeId}/{reviewId}")
-    public ResponseEntity<Long> modifyReview(@PathVariable Long reviewId, @RequestBody ReviewDTO placeReviewDTO){
-        log.info("--------------------modify PlaceReview----------------");
-        log.info("reviewDTO: " + placeReviewDTO);
-        reviewService.modify(placeReviewDTO);
-        return new ResponseEntity<>(reviewId, HttpStatus.OK);
-    }
-
-    //review를 삭제하는 메서드
-    @DeleteMapping("{placeId}/{reviewId}")
-    public ResponseEntity<Long> removeReview(@PathVariable Long reviewId){
-        log.info("--------------------modify removeReview----------------");
-        log.info("reviewDTO: " + reviewId);
-        reviewService.remove(reviewId);
-        return new ResponseEntity<>(reviewId, HttpStatus.OK);
+        // 이미지
+        return new RedirectView("/place/read?placeId="+placeId+"&page="+page);
     }
 }

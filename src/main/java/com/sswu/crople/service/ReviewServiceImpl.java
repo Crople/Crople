@@ -4,12 +4,15 @@ import com.sswu.crople.dto.PlaceDTO;
 import com.sswu.crople.dto.ReviewDTO;
 import com.sswu.crople.entity.Place;
 import com.sswu.crople.entity.Review;
+import com.sswu.crople.entity.ReviewImage;
+import com.sswu.crople.repository.ReviewImageRepository;
 import com.sswu.crople.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -19,26 +22,38 @@ import java.util.stream.Collectors;
 public class ReviewServiceImpl implements ReviewService{
 
     private final ReviewRepository reviewRepository;
+    private final ReviewImageRepository imageRepository;
 
-    // placeId에 해당하는 place의 review들을 반환하는 메서드
     @Override
     public List<ReviewDTO> getListOfPlace(Long placeId) {
         Place place = Place.builder().placeId(placeId).build();
 
         List<Review> result = reviewRepository.findByPlace(place);
 
-        return result.stream().map(placeReview -> entityToDTO(placeReview)).collect(Collectors.toList());
+        List<ReviewDTO> reviewDTOList = result.stream()
+                .map(placeReview -> entityToDTO(placeReview, imageRepository.findByReview(placeReview.getReviewId())))
+                .collect(Collectors.toList());
+
+        return reviewDTOList;
     }
 
-    // review를 등록하는 메서드
     @Override
     public Long register(ReviewDTO placeReviewDTO) {
-        Review placeReview = dtoToEntity(placeReviewDTO);
+
+        Map<String, Object> entityMap = dtoToEntity(placeReviewDTO);
+        Review placeReview = (Review) entityMap.get("review");
+        List<ReviewImage> images = (List<ReviewImage>) entityMap.get("imgList");
+
         reviewRepository.save(placeReview);
+        if(images != null) {
+            images.forEach(reviewImage -> {
+                imageRepository.save(reviewImage);
+            });
+        }
+
         return placeReview.getReviewId();
     }
 
-    // review를 수정하는 메서드
     @Override
     public void modify(ReviewDTO placeReviewDTO) {
         Optional<Review> result = reviewRepository.findById(placeReviewDTO.getReviewId());
@@ -52,7 +67,6 @@ public class ReviewServiceImpl implements ReviewService{
         }
     }
 
-    // review를 삭제하는 메서드
     @Override
     public void remove(Long reviewId) {
         reviewRepository.deleteById(reviewId);

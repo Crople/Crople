@@ -2,7 +2,9 @@ package com.sswu.crople.controller;
 
 import com.sswu.crople.dto.PageRequestDTO;
 import com.sswu.crople.dto.PlaceDTO;
+import com.sswu.crople.dto.ReviewDTO;
 import com.sswu.crople.service.PlaceService;
+import com.sswu.crople.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -60,5 +62,6 @@ public class PlaceController {
 
         // dto라는 attribute에 placeDTO를 실어 html로 전송
         model.addAttribute("dto", placeDTO);
+        model.addAttribute("page", requestDTO.getPage());
     }
 }
