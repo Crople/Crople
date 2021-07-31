@@ -1,0 +1,7 @@
+cloud:
+  aws:
+    s3:
+      bucket: clople-image
+      url: https://s3.us-east-2.amazonaws.com/clople-image
+    region:
+      static: ap-northeast-2
