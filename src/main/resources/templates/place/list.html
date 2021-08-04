@@ -47,8 +47,8 @@
                     <tbody>
                         <tr th:each="dto : ${result.dtoList}" >
                             <th scope="row">
-                                <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null }"
-                                    th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" >
+                                <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].objectURL != null }"
+                                    th:src="${dto.imageDTOList[0].objectURL}" >
                                 <a th:href="@{/place/read(placeId = ${dto.placeId}, page=${result.page})}">[[${dto.name}]]</a>
                             </th>
                         <td scope="row">[[${dto.reviewCnt}]]</td>

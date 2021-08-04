@@ -17,11 +17,7 @@ public class PlaceImage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long imgId;
 
-    private String uuid;
-
-    private String imgName;
-
-    private String path;
+    private String url;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Place place;

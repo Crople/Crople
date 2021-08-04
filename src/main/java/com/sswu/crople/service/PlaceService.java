@@ -40,9 +40,7 @@ public interface PlaceService {
             List<PlaceImage> placeImageList = imageDTOList.stream()
                     .map(placeImageDTO -> {
                         PlaceImage placeImage = PlaceImage.builder()
-                                .path(placeImageDTO.getPath())
-                                .imgName(placeImageDTO.getImgName())
-                                .uuid(placeImageDTO.getUuid())
+                                .url(placeImageDTO.getObjectURL())
                                 .place(place)
                                 .build();
                         return placeImage;
@@ -67,9 +65,7 @@ public interface PlaceService {
         List<PlaceImageDTO> placeImageDTOList = placeImages.stream()
                 .map(placeImage -> {
                     return PlaceImageDTO.builder()
-                            .path(placeImage.getPath())
-                            .imgName(placeImage.getImgName())
-                            .uuid(placeImage.getUuid())
+                            .objectURL(placeImage.getUrl())
                             .build();
         }).collect(Collectors.toList());
 
