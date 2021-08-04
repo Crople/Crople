@@ -85,8 +85,8 @@
 
                 <div class="uploadResult">
                   <ul >
-                    <li th:each="placeImage: ${dto.imageDTOList}" th:data-file="${placeImage.getThumbnailURL()}">
-                      <img  th:if="${placeImage.path != null}" th:src="|/display?fileName=${placeImage.getThumbnailURL()}|">
+                    <li th:each="placeImage: ${dto.imageDTOList}" th:data-file="${placeImage.objectURL}">
+                      <img  th:if="${placeImage.objectURL != null}" th:src="${placeImage.objectURL}">
                     </li>
                   </ul>
                 </div>
@@ -163,10 +163,9 @@
 
                     for (var i = 0; i < review.imageDTOList.length; i++) {
                       var imageDTO = review.imageDTOList[i];
-                      var imageURL = imageDTO.path + "/" + imageDTO.uuid + "_" + imageDTO.imgName;
-                      if (review.imageDTOList[i].path != null) {
-                        str += '<li data-file="' + imageURL + '">';
-                        str += '<img src="/display?fileName=' + imageURL + '">';
+                      if (review.imageDTOList[i].objectURL != null) {
+                        str += '<li>';
+                        str += '<img src="' + imageDTO.objectURL + '">';
                         str += '</li>';
                       }
                     }
@@ -189,7 +188,7 @@
 
               console.log(file);
 
-              $('.imageModal .modal-body').html("<img style='width:100%' src='/display?fileName="+file+"&size=1' >")
+              // $('.imageModal .modal-body').html("<img style='width:100%' src='/display?fileName="+file+"&size=1' >")
 
               $(".imageModal").modal("show");
 
