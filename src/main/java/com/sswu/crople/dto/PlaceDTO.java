@@ -21,6 +21,8 @@ public class PlaceDTO {
     private String type;
     private String address;
     private String tel;
+    private String map;
+    private String menu;
 
     @Builder.Default
     private List<PlaceImageDTO> imageDTOList = new ArrayList<>();

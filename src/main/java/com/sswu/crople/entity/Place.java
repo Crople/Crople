@@ -26,4 +26,7 @@ public class Place{
 
     private String tel;
 
+    private String map;
+
+    private String menu;
 }

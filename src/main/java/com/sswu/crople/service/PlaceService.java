@@ -31,6 +31,8 @@ public interface PlaceService {
                 .type(placeDTO.getType())
                 .address(placeDTO.getAddress())
                 .tel(placeDTO.getTel())
+                .map(placeDTO.getMap())
+                .menu(placeDTO.getMenu())
                 .build();
         entityMap.put("place", place);
 
@@ -62,6 +64,8 @@ public interface PlaceService {
                 .type(place.getType())
                 .address(place.getAddress())
                 .tel(place.getTel())
+                .map(place.getMap())
+                .menu(place.getMenu())
                 .build();
 
         List<PlaceImageDTO> placeImageDTOList = placeImages.stream()
