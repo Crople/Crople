@@ -4,8 +4,6 @@ import com.sswu.crople.dto.PageRequestDTO;
 import com.sswu.crople.dto.PageResultDTO;
 import com.sswu.crople.dto.PlaceDTO;
 import com.sswu.crople.entity.Place;
-import com.sswu.crople.entity.PlaceImage;
-import com.sswu.crople.repository.PlaceImageRepository;
 import com.sswu.crople.repository.PlaceRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -15,10 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Function;
 
 @Service
@@ -28,21 +23,13 @@ public class PlaceServiceImpl implements PlaceService{
 
     private final PlaceRepository placeRepository;
 
-    private final PlaceImageRepository imageRepository;
-
     // place를 reposigory에 등록하는 메서드
     @Transactional
     @Override
     public Long register(PlaceDTO placeDTO) {
-        Map<String, Object> entityMap = dtoToEntity(placeDTO);
-        Place place = (Place) entityMap.get("place");
-        List<PlaceImage> placeImageList = (List<PlaceImage>) entityMap.get("imgList");
+        Place place = (Place) dtoToEntity(placeDTO);
 
         placeRepository.save(place);
-
-        placeImageList.forEach(placeImage -> {
-            imageRepository.save(placeImage);
-        });
 
         return place.getPlaceId();
     }
@@ -54,11 +41,10 @@ public class PlaceServiceImpl implements PlaceService{
 
         Page<Object[]> result = placeRepository.getListPage(pageable);
 
-        Function<Object[], PlaceDTO> fn = (arr -> entitiesToDTO(
+        Function<Object[], PlaceDTO> fn = (arr -> entityToDTO(
                 (Place) arr[0],
-                (List<PlaceImage>) (Arrays.asList((PlaceImage)arr[1])),
-                (Double) arr[2],
-                (Long) arr[3]
+                (Double) arr[1],
+                (Long) arr[2]
         ));
 
         return new PageResultDTO<>(result, fn);
@@ -71,16 +57,9 @@ public class PlaceServiceImpl implements PlaceService{
         List<Object[]> result = placeRepository.getPlaceWithAll(placeId);
 
         Place place = (Place) result.get(0)[0];
-        List<PlaceImage> placeImageList =  new ArrayList<>();
+        Double avg = (Double) result.get(0)[1];
+        Long reviewCnt = (Long) result.get(0)[2];
 
-        result.forEach(arr -> {
-            PlaceImage placeImage = (PlaceImage) arr[1];
-            placeImageList.add(placeImage);
-        });
-
-        Double avg = (Double) result.get(0)[2];
-        Long reviewCnt = (Long) result.get(0)[3];
-
-        return entitiesToDTO(place, placeImageList, avg, reviewCnt);
+        return entityToDTO(place, avg, reviewCnt);
     }
 }

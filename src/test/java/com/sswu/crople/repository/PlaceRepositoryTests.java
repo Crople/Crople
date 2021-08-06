@@ -56,14 +56,14 @@ public class PlaceRepositoryTests {
         }
     }
 
-    @Test
-    public void testGetPlaceWithAll(){
-        List<Object[]> result = placeRepository.getPlaceWithAll(1L);
-
-        System.out.println(result);
-
-        for(Object[] arr : result){
-            System.out.println(Arrays.toString(arr));
-        }
-    }
+//    @Test
+//    public void testGetPlaceWithAll(){
+//        List<Object[]> result = placeRepository.getPlaceWithAll(1L);
+//
+//        System.out.println(result);
+//
+//        for(Object[] arr : result){
+//            System.out.println(Arrays.toString(arr));
+//        }
+//    }
 }
