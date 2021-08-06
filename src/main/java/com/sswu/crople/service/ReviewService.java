@@ -37,9 +37,7 @@ public interface ReviewService {
             List<ReviewImage> reviewImageList = imageDTOList.stream()
                     .map(reviewImageDTO -> {
                         ReviewImage reviewImage = ReviewImage.builder()
-                                .path(reviewImageDTO.getPath())
-                                .imgName(reviewImageDTO.getImgName())
-                                .uuid(reviewImageDTO.getUuid())
+                                .url(reviewImageDTO.getObjectURL())
                                 .review(placeReview)
                                 .build();
                         return reviewImage;
@@ -66,9 +64,7 @@ public interface ReviewService {
         List<ReviewImageDTO> reviewImageDTOList = reviewImages.stream()
                 .map(reviewImage -> {
                     return ReviewImageDTO.builder()
-                            .path(reviewImage.getPath())
-                            .imgName(reviewImage.getImgName())
-                            .uuid(reviewImage.getUuid())
+                            .objectURL(reviewImage.getUrl())
                             .build();
                 }).collect(Collectors.toList());
 
