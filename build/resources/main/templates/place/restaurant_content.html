@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="setContent(content)">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+        <title>Title</title>
+    </head>
+
+    <body>
+
+    <style>
+        /*전체를 감싸는 div 태그의 id*/
+        #wrap{
+            height: 165vh;
+            /*가운데 정렬*/
+            margin: 0 auto;
+            max-width: 500px;
+            width: 100%;
+            background-color: #FFFCF0;
+            /*border: 1px solid black;*/
+        }
+        .width {
+            max-width: 500px;
+            width: 100%;
+        }
+        /*상단바*/
+        .header{
+            max-width: 500px;
+            width: 100%;
+            /*맨위에 고정*/
+            top: 0px;
+            height: 10vh;
+            /*상단바 위치 고정*/
+            /*position: fixed;*/
+            background-color: #FFFCF0;
+            /*노란색*/
+            /*background-color: #FBD14B;*/
+        }
+        .header_table {
+            max-width: 500px;
+            width: 100%;
+            padding-top: 10px;
+            vertical-align: center;
+        }
+        /*식당 이름*/
+        .rstName {
+            width: 255px;
+            font-size: x-large;
+            font-weight: bolder;
+            text-align: center;
+        }
+        .btn_td {
+            width: 40px;
+            padding-inline: 10px;
+        }
+        .btn_td_left {
+            text-align: left;
+        }
+        .btn_td_right {
+            text-align: right;
+        }
+        /*뒤로가기 버튼과 플러스 버튼*/
+        .btn {
+            /*버튼의 크기*/
+            width: 40px;
+            height: 40px;
+        }
+        /*content_table을 감싸는 div 태그*/
+        .content {
+            /*margin-top: 9vh;*/
+        }
+        /*가게 지도, 가게 사진, 가게 설명을 포함하는 테이블*/
+        .content_table {
+            border-collapse: separate;
+            border-spacing: 10px;
+        }
+        /*가게 지도*/
+        iframe {
+            margin-left: 10px;
+            width: 480px;
+        }
+        /*지도*/
+        .map {
+            height: 24vh;
+            /*임시 테두리*/
+            border: 1px solid black;
+        }
+        /*가게 사진*/
+        .restaurant {
+            width: 150px;
+            height: 200px;
+        }
+        /*가게 설명*/
+        .explanation {
+            background: #DEDCEE;
+            padding-left: 10px;
+            border-radius: 1.5em;
+        }
+        /*가게 소개와 리뷰를 분리하는 직선*/
+        .hr {
+            border: 4px solid #6A60A9;
+        }
+        /*별점을 포함하는 테이블*/
+        .rank_table {
+        }
+        .star {
+            margin-left: 15px;
+            width: 40px;
+            text-align: center;
+        }
+        .score {
+            font-size: large;
+            font-weight: bold;
+        }
+        /*리뷰 리스트를 포함하는 div 태그*/
+        .review_div {
+        }
+        /*리뷰 리스트의 전체를 포함하는 ul 태그*/
+        .review_list {
+            list-style-type: none;
+            padding-left:0 ;
+            /*리스트 위쪽 공백 없애기*/
+            margin-top: 0;
+        }
+        /*ul 태그 안 list 태그*/
+        .review {
+            position: relative;
+            height: 118px;
+            border: 5px solid #6A60A9;
+            margin-bottom: 10px;
+            /*리뷰의 위치 설정*/
+            margin-inline: 20px;
+            /*테두리 둥글게*/
+            border-radius: 1em;
+        }
+        /*리뷰 내용*/
+        .review_content {
+            height: 118px;
+            /*줄 사이의 간격 설정*/
+            line-height: 180%;
+            margin-left: 100px;
+            /*리뷰 내용을 포함하는 div 기준으로 수직 정렬*/
+            display: table-cell;
+            vertical-align: middle;
+        }
+        /*리뷰 사진*/
+        .picture {
+            width: 100px;
+            height: 100px;
+            margin: 8px;
+            /*임시 테두리*/
+            border: 1px solid black;
+        }
+
+    </style>
+    <!--전체를 감싸는 div 태그-->
+    <div id="wrap">
+        <!--    상단바-->
+        <div class="header">
+            <table class="header_table">
+                <tr>
+                    <td class="btn_td btn_td_left"><button id="back" class="btn"><-</button>
+                    <td class="rstName">식당 이름
+                    <td class="btn_td btn_td_right"><button id="plus" class="btn">+</button></td>
+                </tr>
+            </table>
+        </div>
+
+        <!--    지도와 가게 정보를 감싸는 div 태그-->
+        <div class="content">
+            <table class="content_table width">
+                <tr>
+                    <div>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3161.4539971589816!2d127.01621241531235!3d37.591472879793315!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357cbcc77d27a4df%3A0x11f0ff65b6affc2d!2z7ISc7Jq47Yq567OE7IucIOyEseu2geq1rCDrj5nshKDrj5kg64-Z7IaM66y466GcMjLquLggMzMtNg!5e0!3m2!1sko!2skr!4v1627636617310!5m2!1sko!2skr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </tr>
+                <tr>
+                    <td class="restaurant"><img src="그릭데이.jpg" alt="가게 사진" class="restaurant"/></td>
+                    <td class="explanation">가게 설명 (무한대로 작성 가능)</td>
+                </tr>
+            </table>
+        </div>
+
+        <hr class="hr">
+
+        <!--    전체 리뷰를 감싸는 div 태그-->
+        <div class="width">
+            <table class="rank_table width">
+                <tr>
+                    <td class="star"><img src="review_star2.png" class="star"></td>
+                    <td class="score">00 점</td>
+                </tr>
+            </table>
+            <div class="review_div width">
+                <ul class="review_list" data-role="listview" data-inset="inset">
+                    <li class="review">
+                        <img src="이미지 경로" class="picture" align="left"/>
+                        <div class="review_content width">최대 100글자까지 작성 가능</div>
+                    </li>
+                    <li class="review">
+
+                        <img src="이미지 경로" class="picture" align="left"/>
+                        <div class="review_content width"></div>
+                    </li>
+                    <li class="review">
+                        <img src="이미지 경로" class="picture" align="left"/>
+                        <div class="review_content width"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    </body>
+</th:block>
+</html>
