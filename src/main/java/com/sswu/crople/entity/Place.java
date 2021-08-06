@@ -17,13 +17,11 @@ public class Place{
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long placeId;
-
     private String name;
-
     private String type;
-
     private String address;
-
     private String tel;
-
+    private String menu;
+    private String map;
+    private String imgURL;
 }

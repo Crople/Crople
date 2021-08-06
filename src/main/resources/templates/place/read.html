@@ -27,6 +27,33 @@
 
     </head>
 
+    <style>
+      .uploadResult {
+        width: 100%;
+        background-color: gray;
+        margin-top: 10px;
+      }
+
+      .uploadResult ul {
+        display: flex;
+        flex-flow: row;
+        justify-content: center;
+        align-items: center;
+        vertical-align: top;
+        overflow: auto;
+      }
+
+      .uploadResult ul li {
+        list-style: none;
+        ding: 10px;
+        margin-left: 2em;
+      }
+
+      .uploadResult ul li img {
+        width: 100px;
+      }
+    </style>
+
   <body>
 
   <div class="d-flex" id="wrapper">
@@ -56,40 +83,10 @@
           <input type="text" class="form-control" name="title" th:value="${dto.tel}" readonly>
         </div>
 
-                <style>
-                  .uploadResult {
-                    width: 100%;
-                    background-color: gray;
-                    margin-top: 10px;
-                  }
-
-                  .uploadResult ul {
-                    display: flex;
-                    flex-flow: row;
-                    justify-content: center;
-                    align-items: center;
-                    vertical-align: top;
-                    overflow: auto;
-                  }
-
-                  .uploadResult ul li {
-                    list-style: none;
-                   ding: 10px;
-                    margin-left: 2em;
-                  }
-
-                  .uploadResult ul li img {
-                    width: 100px;
-                  }
-                </style>
-
-                <div class="uploadResult">
-                  <ul >
-                    <li th:each="placeImage: ${dto.imageDTOList}" th:data-file="${placeImage.objectURL}">
-                      <img  th:if="${placeImage.objectURL != null}" th:src="${placeImage.objectURL}">
-                    </li>
-                  </ul>
-                </div>
+        <div class="form-group">
+          <label >Menu</label>
+          <input type="text" class="form-control" name="title" th:value="${dto.menu}" readonly>
+        </div>
 
         <div class="list-group reviewList">
 

@@ -3,16 +3,7 @@ package com.sswu.crople.service;
 import com.sswu.crople.dto.PageRequestDTO;
 import com.sswu.crople.dto.PageResultDTO;
 import com.sswu.crople.dto.PlaceDTO;
-import com.sswu.crople.dto.PlaceImageDTO;
 import com.sswu.crople.entity.Place;
-import com.sswu.crople.entity.PlaceImage;
-import org.springframework.data.jpa.repository.Query;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
 public interface PlaceService {
 
     Long register(PlaceDTO placeDTO);
@@ -21,9 +12,7 @@ public interface PlaceService {
 
     PlaceDTO getPlace(Long placeId);
 
-    default Map<String, Object> dtoToEntity(PlaceDTO placeDTO){
-
-        Map<String, Object> entityMap = new HashMap<>();
+    default Place dtoToEntity(PlaceDTO placeDTO){
 
         Place place = Place.builder()
                 .placeId(placeDTO.getPlaceId())
@@ -31,28 +20,15 @@ public interface PlaceService {
                 .type(placeDTO.getType())
                 .address(placeDTO.getAddress())
                 .tel(placeDTO.getTel())
+                .menu(placeDTO.getMenu())
+                .map(placeDTO.getMap())
+                .imgURL(placeDTO.getImgURL())
                 .build();
-        entityMap.put("place", place);
 
-        List<PlaceImageDTO> imageDTOList = placeDTO.getImageDTOList();
-
-        if(imageDTOList != null && imageDTOList.size() > 0){
-            List<PlaceImage> placeImageList = imageDTOList.stream()
-                    .map(placeImageDTO -> {
-                        PlaceImage placeImage = PlaceImage.builder()
-                                .url(placeImageDTO.getObjectURL())
-                                .place(place)
-                                .build();
-                        return placeImage;
-                    }).collect(Collectors.toList());
-
-            entityMap.put("imgList", placeImageList);
-        }
-
-        return entityMap;
+        return place;
     }
 
-    default PlaceDTO entitiesToDTO(Place place, List<PlaceImage> placeImages, Double avg, Long reviewCnt){
+    default PlaceDTO entityToDTO(Place place, Double avg, Long reviewCnt){
 
         PlaceDTO placeDTO = PlaceDTO.builder()
                 .placeId(place.getPlaceId())
@@ -60,16 +36,11 @@ public interface PlaceService {
                 .type(place.getType())
                 .address(place.getAddress())
                 .tel(place.getTel())
+                .menu(place.getMenu())
+                .map(place.getMap())
+                .imgURL(place.getImgURL())
                 .build();
 
-        List<PlaceImageDTO> placeImageDTOList = placeImages.stream()
-                .map(placeImage -> {
-                    return PlaceImageDTO.builder()
-                            .objectURL(placeImage.getUrl())
-                            .build();
-        }).collect(Collectors.toList());
-
-        placeDTO.setImageDTOList(placeImageDTOList);
         placeDTO.setAvg(avg);
         placeDTO.setReviewCnt(reviewCnt.intValue());
 
