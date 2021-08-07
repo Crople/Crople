@@ -8,7 +8,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Simple Sidebar - Start Bootstrap Template</title>
+        <title>Crople Place List</title>
 
         <!-- Bootstrap core CSS -->
         <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
@@ -19,43 +19,127 @@
         <!-- Bootstrap core JavaScript -->
         <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
         <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+        <style>
+            html {
+                height: -webkit-fill-available;
+            }
+
+            body {
+                background-color: #dddddd;
+                margin: 0px; /* 브라우저 자체 기본 margin 없애기 */
+                display: flex;
+                justify-content: center;
+                /* align-items: center; 자식 요소를 세로 가운데 정렬 */
+                height: 100vh; /* '-webkit-fill-available'이 유효하지 않을 경우를 대비 */
+                height: -webkit-fill-available;
+            }
+
+            #wrapper{
+                height: 100vh;
+                margin:0 auto;
+                max-width: 500px;
+                width: 100%;
+                text-align: center;
+                background-color: #FFFCF0;
+            }
+
+            header{
+                height: 40px;
+                padding-top: 0px;
+                margin-top: 0;
+                margin-left: 0;
+                margin-right: 0;
+                text-align: center;
+                align-items: center;
+                background-color: #B0A0DC;
+                padding-left: 0px;
+            }
+
+            header h4{
+                padding: 5px;
+                display: inline-block;
+                margin: auto;
+            }
+
+            .row{
+                width: 400px;
+                height: 60px;
+                margin: 0 auto;
+                margin-top: 10px;
+                border: 3px solid #B0A0DC;
+                border-radius: 10px;
+                background-color: white;
+            }
+
+            .row img{
+                width: 50px;
+                height: 50px;
+                margin: auto;
+                margin-left: 10px;
+            }
+
+            .row a{
+                margin: auto;
+                margin-left: 10px;
+                font-size: 25px;
+            }
+
+            .row .info{
+                width: 80px;
+                margin: auto;
+                margin-right: 10px;
+                font-size: 12px;
+            }
+
+            .row .info p{
+                margin: auto;
+                margin-top: 5px;
+            }
+
+            .pagination{
+                display: -ms-flexbox;
+                display: flex;
+                padding-left: 0;
+                list-style: none;
+                border-radius: 0.25rem;
+
+                height: 10%;
+
+                -ms-flex-pack: center !important;
+                justify-content: center !important;
+
+                -ms-flex-align: center !important;
+                align-items: center !important;
+            }
+
+        </style>
     </head>
 
     <body>
     <div class="d-flex" id="wrapper">
             <div class="container-fluid">
 
-                <h1 class="mt-4">Place List Page
-                    <span>
-                        <a th:href="@{/place/register}">
-                            <button type="button" class="btn btn-outline-primary">REGISTER</button>
-                        </a>
-                    </span>
-                </h1>
+                <header>
+                    <h4>
+                        🔮 Crytal Road Places 🔮
+                    </h4>
+                </header>
 
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">name & photo</th>
-                            <th scope="col">Review</th>
-                            <th scope="col">AVG Rating</th>
-                        </tr>
-                    </thead>
+                <div class="row" th:each="dto: ${result.dtoList}">
+                    <img th:if="${dto.imgURL != null}"
+                         th:src="${dto.imgURL}" >
 
-                    <tbody>
-                        <tr th:each="dto : ${result.dtoList}" >
-                            <th scope="row">
-                                <img th:if="${dto.imgURL != null}"
-                                    th:src="${dto.imgURL}" >
-                                <a th:href="@{/place/read(placeId = ${dto.placeId}, page=${result.page})}">[[${dto.name}]]</a>
-                            </th>
-                        <td scope="row">[[${dto.reviewCnt}]]</td>
-                        <td scope="row">[[${dto.avg}]]</td>
-                    </tr>
-                    </tbody>
-                </table>
+                    <a th:href="@{/place/read(placeId = ${dto.placeId}, page=${result.page})}">[[${dto.name}]]</a>
 
-                <ul class="pagination h-100 justify-content-center align-items-center">
+                    <div class="info">
+                        <p>리뷰수 : [[${dto.reviewCnt}]]</p>
+                        <p>평점 : [[${dto.avg}]]</p>
+                    </div>
+
+                </div>
+
+                <ul class="pagination">
                     <li class="page-item " th:if="${result.prev}">
                         <a class="page-link" th:href="@{/place/list(page= ${result.start -1})}" tabindex="-1">
                             Previous
@@ -74,6 +158,10 @@
                         </a>
                     </li>
                 </ul>
+
+                <a th:href="@{/place/register}">
+                    <button type="button" class="btn btn-outline-primary">place 등록 (관리자 기능)</button>
+                </a>
 
             </div>
         </div>
