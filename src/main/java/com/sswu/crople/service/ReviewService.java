@@ -1,7 +1,6 @@
 package com.sswu.crople.service;
 
 import com.sswu.crople.dto.PlaceDTO;
-import com.sswu.crople.dto.PlaceImageDTO;
 import com.sswu.crople.dto.ReviewDTO;
 import com.sswu.crople.dto.ReviewImageDTO;
 import com.sswu.crople.entity.*;
