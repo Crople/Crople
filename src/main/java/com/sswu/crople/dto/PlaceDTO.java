@@ -1,6 +1,5 @@
 package com.sswu.crople.dto;
 
-import com.sswu.crople.entity.PlaceImage;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
