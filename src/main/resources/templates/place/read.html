@@ -52,6 +52,14 @@
       .uploadResult ul li img {
         width: 100px;
       }
+
+      .map_div {
+        margin-left: 12px;
+      }
+      .map {
+        width: 450px;
+        height: 200px;
+      }
     </style>
 
   <body>
@@ -86,6 +94,10 @@
         <div class="form-group">
           <label >Menu</label>
           <input type="text" class="form-control" name="title" th:value="${dto.menu}" readonly>
+        </div>
+
+        <div class="map_div map">
+          <iframe class="map" th:src="${dto.map}"></iframe>
         </div>
 
         <div class="list-group reviewList">
