@@ -32,9 +32,18 @@
     </head>
 
     <style>
+        body {
+            background-color: #dddddd;
+            margin: 0px; /* 브라우저 자체 기본 margin 없애기 */
+            display: flex;
+            justify-content: center;
+            /* align-items: center; 자식 요소를 세로 가운데 정렬 */
+            height: 100vh; /* '-webkit-fill-available'이 유효하지 않을 경우를 대비 */
+            height: -webkit-fill-available;
+        }
       /*전체를 감싸는 div 태그의 id*/
       #wrap{
-        height: 165vh;
+        height: 110vh;
         /*가운데 정렬*/
         margin: 0 auto;
         max-width: 500px;
@@ -150,38 +159,47 @@
       .uploadResult ul li {
         list-style: none;
         ding: 10px;
-        margin-left: 2em;
       }
       .uploadResult ul li img {
         width: 100px;
       }
+      .re_back {
+          width: 500px;
+          margin-left: -14.3px;
+          background-color: #FFFCF0;
+          padding-bottom: 20px;
+      }
       /*리뷰 table을 포함하는 div*/
       .re_div {
+          width: 460px;
+          margin-left: 20px;
         background-color: #FFFCF0;
         border: 5px solid #6A60A9;
         border-radius: 20px 20px 20px 20px;
-        margin-bottom: 15px;
+          padding-bottom: 15px;
       }
       /*리뷰 전체를 포함하는 table*/
       .re_table {
+          width: 430px;
+          margin-left: 5px;
         /*꼭 여기에 배경 색상 넣어야 함*/
         background-color: #FFFCF0;
-        margin-bottom: 15px;
       }
-      /*리뷰 이미지를 감싸는 td 태그*/
       .td_img {
         width: 125px;
+        height: 120px;
       }
       /*리뷰 이미지*/
       .re_img {
         width: 120px;
         height: 120px;
         margin-left: 10px;
+        border: 2px solid red;
       }
       /*닉네임, 별점, 리뷰 내용, 날짜를 포함하는 table*/
       .sub_table {
-        width: 300px;
-        margin-left: 10px;
+        width: 280px;
+          margin-left: 15px;
       }
       /*리뷰 본문을 감싸는 tr 태그*/
       .re_con_tr {
@@ -199,8 +217,16 @@
       <div class="header">
         <table class="header_table">
           <tr>
-            <td class="btn_td_left tr_size"><button id="back" class="btn"><-</button>
+<!--            뒤로 가기 버튼-->
+            <td class="btn_td_left tr_size">
+              <a>
+                <button id="back" class="btn" onclick="history.back(-1)">
+                <img class="btn_img" src=""/>
+                </button>
+              </a>
+<!--            장소 이름-->
             <td class="rstName font">[[${dto.name}]]</td>
+<!--            리뷰 쓰기 버튼-->
             <td class="btn_td_right tr_size">
               <a th:href="@{/place/review/register(placeId=${dto.placeId}, page=${page})}">
                 <button type="button" class="btn">
@@ -301,9 +327,8 @@
                   readOnly: true
                 })
 
-                str += '    <div class="re_div" data-reviewId=' + review.reviewId + ' data-mid=' + review.userId + '>';
-
-
+                str += '    <div class="re_back"><div class="re_div" data-reviewId=' + review.reviewId + ' data-mid=' + review.userId + '>';
+                  
                 // 리뷰 이미지
                 if (review.imageDTOList.length > 0) { // 리뷰가 존재한다면
                   str += '    <table class="uploadResult re_table">';
@@ -311,11 +336,10 @@
                   for (var i = 0; i < review.imageDTOList.length; i++) {
                     var imageDTO = review.imageDTOList[i];
                     var imageURL = imageDTO.url;
-                    if (review.imageDTOList[i].path != null) {
-                      str += '<tr><td class="td_img" data-file="' + imageURL + '">';
-                      str += '<img class="re_img" th:if="${imageDTO.url != null}" th:src="${imageDTO.url}"/>';
-                      str += '</td>';
-                    }
+                    str += '<tr><td class="td_img" data-file="' + imageURL + '">';
+                    // str += '<img class="re_img" th:if="${imageDTO.url != null}" th:src="${imageDTO.url}"/>';
+                    str += '<img class="re_img" th:src="${imageURL}"/>';
+                    str += '</td>';
                   }
                 }
 
@@ -328,7 +352,7 @@
                 // 리뷰 작성 시간
                 str += '    <tr class="re_con"><td class="font re_time">' + formatTime(review.regDate) + '</td></tr>';
 
-                str += '</table></td></tr></table></div>';
+                str += '</table></td></tr></table></div></div>';
 
 
                 // if (review.imageDTOList.length > 0) {
