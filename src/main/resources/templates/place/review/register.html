@@ -11,7 +11,6 @@
 
       <title>Simple Sidebar - Start Bootstrap Template</title>
 
-
       <!-- Bootstrap core CSS -->
       <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
 
@@ -25,17 +24,15 @@
     </head>
 
   <body>
-
   <div class="d-flex" id="wrapper">
     <div class="container-fluid">
       <h1 class="mt-4">Review Register Page</h1>
       <form th:action="@{/place/review/register}" th:method="post">
 
         <div class="form-group">
-          <label >Reviewer email</label>
+          <label >Reviewer ID</label>
           <input type="text" class="form-control" name="email" >
         </div>
-<!--        <input type="hidden" name="placeId" th:value="${email}">-->
 
         <input type="hidden" name="placeId" th:value="${placeId}">
 
@@ -191,11 +188,11 @@
 
             $(uploadResultArr).each(function(i, obj) {
 
-              str += "<li data-name='" + obj.fileName + "' data-path='"+obj.folderPath+"' data-uuid='"+obj.uuid+"'>";
+              str += "<li data-url='"+obj+"'>";
               str + " <div>";
-              str += "<button type='button' data-file=\'" + obj.imageURL + "\' "
+              str += "<button type='button' data-file=\'" + obj + "\' "
               str += "class='btn-warning btn-sm'>X</button><br>";
-              str += "<img src='/display?fileName=" + obj.thumbnailURL + "'>";
+              str += "<img src='" + obj + "'>";
               str += "</div>";
               str + "</li>";
             });
@@ -236,11 +233,7 @@
             $(".uploadResult li").each(function(i,obj){
               var target = $(obj);
 
-              str += "<input type='hidden' name='imageDTOList["+i+"].imgName' value='"+target.data('name') +"'>";
-
-              str += "<input type='hidden' name='imageDTOList["+i+"].path' value='"+target.data('path')+"'>";
-
-              str += "<input type='hidden' name='imageDTOList["+i+"].uuid' value='"+target.data('uuid')+"'>";
+              str += "<input type='hidden' name='imageDTOList["+i+"].objectURL' value='"+target.data('url') +"'>";
 
             });
 
@@ -265,4 +258,3 @@
   </body>
 </th:block>
 </html>
-
