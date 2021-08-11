@@ -28,18 +28,18 @@ public class ReviewRepositoryTests {
 //        reviewRepository.save(placeReview);
     }
 
-    @Test
-    public void testGetPlaceReviews(){
-        Place place = Place.builder().placeId(1L).build();
-
-        List<Review> result = reviewRepository.findByPlace(place);
-
-        result.forEach(placeReview -> {
-            System.out.print(placeReview.getReviewId() + " ");
-            System.out.print(placeReview.getGrade()  + " ");
-            System.out.print(placeReview.getText()  + " ");
-            System.out.println(placeReview.getUser().getEmail()  + " ");
-            System.out.println("===============================");
-        });
-    }
+//    @Test
+//    public void testGetPlaceReviews(){
+//        Place place = Place.builder().placeId(1L).build();
+//
+//        List<Review> result = reviewRepository.findByPlace(place);
+//
+//        result.forEach(placeReview -> {
+//            System.out.print(placeReview.getReviewId() + " ");
+//            System.out.print(placeReview.getGrade()  + " ");
+//            System.out.print(placeReview.getText()  + " ");
+//            System.out.println(placeReview.getUser().getEmail()  + " ");
+//            System.out.println("===============================");
+//        });
+//    }
 }

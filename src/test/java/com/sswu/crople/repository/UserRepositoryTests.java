@@ -30,18 +30,18 @@ public class UserRepositoryTests {
         });
     }
 
-    @Commit
-    @Transactional
-    @Test
-    public void testDeleteUser(){
-
-        User user = User.builder().userId(32L).build();
-
-        //testuser32가 작성한 리뷰가 있는 경우 exception 발생
-//        userRepository.deleteById(32L);
+//    @Commit
+//    @Transactional
+//    @Test
+//    public void testDeleteUser(){
+//
+//        User user = User.builder().userId(32L).build();
+//
+//        //testuser32가 작성한 리뷰가 있는 경우 exception 발생
+////        userRepository.deleteById(32L);
+////        reviewRepository.deleteByUser(user);
+//
 //        reviewRepository.deleteByUser(user);
-
-        reviewRepository.deleteByUser(user);
-        userRepository.deleteById(32L);
-    }
+//        userRepository.deleteById(32L);
+//    }
 }
