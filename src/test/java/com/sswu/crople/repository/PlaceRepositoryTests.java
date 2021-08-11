@@ -1,7 +1,5 @@
 package com.sswu.crople.repository;
 
-import com.sswu.crople.entity.Place;
-import com.sswu.crople.entity.PlaceImage;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,18 +10,12 @@ import org.springframework.test.annotation.Commit;
 
 import javax.transaction.Transactional;
 import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.IntStream;
 
 @SpringBootTest
 public class PlaceRepositoryTests {
 
     @Autowired
     private PlaceRepository placeRepository;
-
-    @Autowired
-    private PlaceImageRepository imageRepository;
 
     @Commit
     @Transactional
