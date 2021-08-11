@@ -25,15 +25,120 @@
       <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
       <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
 
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
     </head>
 
     <style>
+      /*전체를 감싸는 div 태그의 id*/
+      #wrap{
+        height: 165vh;
+        /*가운데 정렬*/
+        margin: 0 auto;
+        max-width: 500px;
+        width: 100%;
+        background-color: #FFFCF0;
+      }
+      .font {
+        font-family: 'Jua', sans-serif;
+      }
+      .font_bold {
+        font-weight: bold;
+      }
+      /*상단바*/
+      .header{
+        padding-top: 8px;;
+        max-width: 500px;
+        width: 100%;
+        height: 10vh;
+        background-color: #FFFCF0;
+        /*text-align: center;*/
+      }
+      .header_table {
+        max-width: 500px;
+        width: 100%;
+        padding-top: 10px;
+        text-align: center;
+      }
+      /*식당 이름*/
+      .rstName {
+        font-size: 23pt;
+        font-weight: bolder;
+      }
+      .header_table {
+        width: 450px;
+        margin: 0 auto;
+      }
+      .tr_size {
+        width: 40px;
+      }
+      /*뒤로가기 버튼과 플러스 버튼*/
+      .btn {
+        background-color: #FFFCF0;
+        border: 0px;
+        /*border: 1px solid black;*/
+      }
+      .btn_td_right {
+        margin-right: 0px;
+      }
+      .btn_img {;
+        width: 33px;
+        height: 33px;
+      }
+      /*가게 지도*/
+      .map_div {
+        margin-left: 12px;
+      }
+      .map {
+        width: 450px;
+        height: 200px;
+      }
+      .content_table {
+        width: 450px;
+        margin-top: 10px;
+        margin-left: 12px;
+      }
+      .res_img {
+        width: 200px;
+        height: 200px;
+        border-radius: 5%;
+      }
+      .content {
+        width: 238px;
+        height: 199px;
+        margin-left: 12px;
+        background: #DEDCEE;
+        border-radius: 15%;
+      }
+      ul {
+        vertical-align: center;
+        margin-left: -20px;
+        padding-top: 5px;
+      }
+      li {
+        list-style: none;
+        margin-top: 3px;
+        font-family: 'Jua', sans-serif;
+      }
+      .title {
+        font-size: 12pt;
+        font-weight: bold;
+      }
+      .sub {
+        font-size: 11pt;
+        margin-left: 10px;
+        margin-bottom: 10px;
+      }
+      hr {
+        border: 7px solid #6A60A9;
+      }
       .uploadResult {
         width: 100%;
         background-color: gray;
         margin-top: 10px;
       }
-
       .uploadResult ul {
         display: flex;
         flex-flow: row;
@@ -42,178 +147,236 @@
         vertical-align: top;
         overflow: auto;
       }
-
       .uploadResult ul li {
         list-style: none;
         ding: 10px;
         margin-left: 2em;
       }
-
       .uploadResult ul li img {
         width: 100px;
       }
+      /*리뷰 table을 포함하는 div*/
+      .re_div {
+        background-color: #FFFCF0;
+        border: 5px solid #6A60A9;
+        border-radius: 20px 20px 20px 20px;
+        margin-bottom: 15px;
+      }
+      /*리뷰 전체를 포함하는 table*/
+      .re_table {
+        /*꼭 여기에 배경 색상 넣어야 함*/
+        background-color: #FFFCF0;
+        margin-bottom: 15px;
+      }
+      /*리뷰 이미지를 감싸는 td 태그*/
+      .td_img {
+        width: 125px;
+      }
+      /*리뷰 이미지*/
+      .re_img {
+        width: 120px;
+        height: 120px;
+        margin-left: 10px;
+      }
+      /*닉네임, 별점, 리뷰 내용, 날짜를 포함하는 table*/
+      .sub_table {
+        width: 300px;
+        margin-left: 10px;
+      }
+      /*리뷰 본문을 감싸는 tr 태그*/
+      .re_con_tr {
+        max-height: 150px;
+      }
+      .re_time {
+        text-align: right;
+      }
 
-      .map_div {
-        margin-left: 12px;
-      }
-      .map {
-        width: 450px;
-        height: 200px;
-      }
     </style>
 
   <body>
+  <div class="d-flex" id="wrap">
+    <div class="container-fluid">
+      <div class="header">
+        <table class="header_table">
+          <tr>
+            <td class="btn_td_left tr_size"><button id="back" class="btn"><-</button>
+            <td class="rstName font">[[${dto.name}]]</td>
+            <td class="btn_td_right tr_size">
+              <a th:href="@{/place/review/register(placeId=${dto.placeId}, page=${page})}">
+                <button type="button" class="btn">
+                  <img class="btn_img" src="data:image/svg+xml;base64,PHN2ZyBpZD0iTGluZSIgaGVpZ2h0PSI1MTIiIHZpZXdCb3g9IjAgMCA2NCA2NCIgd2lkdGg9IjUxMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJtMTkgNTkuNWEzIDMgMCAwIDAgMyAzaDM4YTMgMyAwIDAgMCAzLTN2LTI3aC00NHptNy0yMWgzMGExIDEgMCAwIDEgMCAyaC0zMGExIDEgMCAwIDEgMC0yem0wIDdoMzBhMSAxIDAgMCAxIDAgMmgtMzBhMSAxIDAgMCAxIDAtMnptMCA3aDMwYTEgMSAwIDAgMSAwIDJoLTMwYTEgMSAwIDAgMSAwLTJ6IiBmaWxsPSIjYzRhMmZjIi8+PHBhdGggZD0ibTYwIDI0LjVoLTM4YTMgMyAwIDAgMCAtMyAzdjNoNDR2LTNhMyAzIDAgMCAwIC0zLTN6IiBmaWxsPSIjYzRhMmZjIi8+PGcgZmlsbD0iIzE1MWE2YSI+PHBhdGggZD0ibTQ4IDEuNWgtNDRhMyAzIDAgMCAwIC0zIDN2MzVhMyAzIDAgMCAwIDMgM2g5djMuMTcyYTMgMyAwIDAgMCA1LjEyMSAyLjEyMWw1LjI5My01LjI5M2gyNC41ODZhMyAzIDAgMCAwIDMtM3YtMzVhMyAzIDAgMCAwIC0zLTN6bTEgMzhhMSAxIDAgMCAxIC0xIDFoLTI1YTEgMSAwIDAgMCAtLjcwNy4yOTNsLTUuNTg2IDUuNTg2YTEgMSAwIDAgMSAtMS43MDctLjcwN3YtNC4xNzJhMSAxIDAgMCAwIC0xLTFoLTEwYTEgMSAwIDAgMSAtMS0xdi0zNWExIDEgMCAwIDEgMS0xaDQ0YTEgMSAwIDAgMSAxIDF6Ii8+PHBhdGggZD0ibTM3LjEyMSAxMi4yMDdhMyAzIDAgMCAwIC00LjI0MiAwbC0xMy41ODYgMTMuNTg2YTEgMSAwIDAgMCAtLjI5My43MDd2OWExIDEgMCAwIDAgMSAxaDlhMSAxIDAgMCAwIC43MDctLjI5M2wxMy41ODYtMTMuNTg2YTMgMyAwIDAgMCAwLTQuMjQyem0tOC41MzUgMjIuMjkzaC03LjU4NnYtNy41ODZsMTEtMTEgNy41ODYgNy41ODZ6bTEzLjI5My0xMy4yOTMtLjg3OS44NzktNy41ODYtNy41ODYuODc5LS44NzlhMSAxIDAgMCAxIDEuNDE0IDBsNi4xNzIgNi4xNzJhMSAxIDAgMCAxIDAgMS40MTR6Ii8+PHBhdGggZD0ibTE0IDM0LjVoLTZhMSAxIDAgMCAwIDAgMmg2YTEgMSAwIDAgMCAwLTJ6Ii8+PHBhdGggZD0ibTE0IDI1LjVoLTZhMSAxIDAgMCAwIDAgMmg2YTEgMSAwIDAgMCAwLTJ6Ii8+PHBhdGggZD0ibTIxIDE3LjVhMSAxIDAgMCAwIC0xLTFoLTEyYTEgMSAwIDAgMCAwIDJoMTJhMSAxIDAgMCAwIDEtMXoiLz48cGF0aCBkPSJtOCA5LjVoMjFhMSAxIDAgMCAwIDAtMmgtMjFhMSAxIDAgMCAwIDAgMnoiLz48L2c+PC9zdmc+" />
+                </button>
+              </a>
+            </td>
+          </tr>
+        </table>
+      </div>
 
-  <div class="d-flex" id="wrapper">
-
-      <div class="container-fluid">
-
-        <h1 class="mt-4">Place Read Page
-          <span>
-            <a th:href="@{/place/review/register(placeId=${dto.placeId}, page=${page})}">
-              <button type="button" class="btn btn-outline-primary">REGISTER</button>
-            </a>
-          </span>
-        </h1>
-
-        <div class="form-group">
-          <label >Name</label>
-          <input type="text" class="form-control" name="title" th:value="${dto.name}" readonly>
-        </div>
-
-        <div class="form-group">
-          <label >Address</label>
-          <input type="text" class="form-control" name="title" th:value="${dto.address}" readonly>
-        </div>
-
-        <div class="form-group">
-          <label >Tel</label>
-          <input type="text" class="form-control" name="title" th:value="${dto.tel}" readonly>
-        </div>
-
-        <div class="form-group">
-          <label >Menu</label>
-          <input type="text" class="form-control" name="title" th:value="${dto.menu}" readonly>
-        </div>
-
+      <div class="form-group">
         <div class="map_div map">
+          <!--          지도의 iframe 넣기-->
           <iframe class="map" th:src="${dto.map}"></iframe>
         </div>
+        <div class="form-group">
+          <table class="content_table">
+            <tr>
+              <!--            가게 사진-->
+              <td><img class="res_img" th:if="${dto.imgURL != null}"
+                       th:src="${dto.imgURL}" ></td>
 
-        <div class="list-group reviewList">
-
+              <td class="content">
+                <ul class="content_ul">
+                  <li class="title">주소</li>
+                  <li class="sub">[[${dto.address}]]</li>
+                  <li class="title">전화번호</li>
+                  <li class="sub">[[${dto.tel}]]</li>
+                  <li class="title">소개</li>
+                  <li class="sub">[[${dto.menu}]]</li>
+                </ul>
+              </td>
+            </tr>
+          </table>
         </div>
+      </div>
+      <hr/>
 
-        <div class="imageModal modal " tabindex="-2" role="dialog">
-          <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Picture</h5>
-
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <script th:src="@{/starrr.js}"></script>
-        <link th:href="@{/css/starrr.css}" rel="stylesheet">
-        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
-
-        <script>
-          $(document).ready(function(e) {
-
-            var placeId = [[${dto.placeId}]];
-            var reviewModal = $(".reviewModal");
-            var inputUserId = $('input[name="userId"]');
-            var inputText = $('input[name="text"]');
-
-            //페이지가 열리면 바로 리뷰 데이터들을 가져와서 사용한다.
-            function getPlaceReviews() {
-
-              function formatTime(str){
-                var date = new Date(str);
-
-                return date.getFullYear() + '/' +
-                        (date.getMonth() + 1) + '/' +
-                        date.getDate() + ' ' +
-                        date.getHours() + ':' +
-                        date.getMinutes();
-              }
-
-              $.getJSON("/reviews/"+ placeId +"/all", function(arr) {
-                var str = "";
-
-                $.each(arr, function (idx, review) {
-
-                  console.log(review);
-
-                  $(".starrr").starrr({
-                    rating:review.grade,
-                    readOnly: true
-                  })
-
-                  str += '    <div class="card-body" data-reviewId=' + review.reviewId + ' data-mid=' + review.userId + '>';
-                  str += '    <h6 class="card-subtitle mb-2 text-muted">' + review.nickname +
-                          '    <span><div class="starrr">&nbsp;&nbsp;| grade : '+review.grade+'</div></span></h6>';
-                  str += '    <h5 class="card-title">' + review.text + '</h5>';
-                  str += '    <p class="card-text">' + formatTime(review.regDate) + '</p>';
-
-                  if (review.imageDTOList.length > 0) {
-                    str += '    <div class="uploadResult"><ul>';
-
-                    for (var i = 0; i < review.imageDTOList.length; i++) {
-                      var imageDTO = review.imageDTOList[i];
-                      if (review.imageDTOList[i].objectURL != null) {
-                        str += '<li>';
-                        str += '<img src="' + imageDTO.objectURL + '">';
-                        str += '</li>';
-                      }
-                    }
-                    str += '    </ul></div>';
-                  }
-                  str += '</div>';
-
-                  $(".reviewList").html(str);
-                });
-              });
-            }
-
-            getPlaceReviews();
-
-            var reviewId;
-
-            $(".uploadResult li").click(function() {
-
-              var file = $(this).data('file');
-
-              console.log(file);
-
-              // $('.imageModal .modal-body').html("<img style='width:100%' src='/display?fileName="+file+"&size=1' >")
-
-              $(".imageModal").modal("show");
-
-            });
-
-          });
-        </script>
+      <div class="list-group reviewList">
 
       </div>
 
+      <div class="imageModal modal " tabindex="-2" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Picture</h5>
+
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script th:src="@{/starrr.js}"></script>
+      <link th:href="@{/css/starrr.css}" rel="stylesheet">
+      <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
+
+      <script>
+        $(document).ready(function(e) {
+
+          var placeId = [[${dto.placeId}]];
+          var reviewModal = $(".reviewModal");
+          var inputUserId = $('input[name="userId"]');
+          var inputText = $('input[name="text"]');
+
+          //페이지가 열리면 바로 리뷰 데이터들을 가져와서 사용한다.
+          function getPlaceReviews() {
+
+            function formatTime(str){
+              var date = new Date(str);
+
+              return date.getFullYear() + '/' +
+                      (date.getMonth() + 1) + '/' +
+                      date.getDate() + ' ' +
+                      date.getHours() + ':' +
+                      date.getMinutes();
+            }
+
+            $.getJSON("/reviews/"+ placeId +"/all", function(arr) {
+              var str = "";
+
+              $.each(arr, function (idx, review) {
+
+                console.log(review);
+
+                $(".starrr").starrr({
+                  rating:review.grade,
+                  readOnly: true
+                })
+
+                str += '    <div class="re_div" data-reviewId=' + review.reviewId + ' data-mid=' + review.userId + '>';
+
+
+                // 리뷰 이미지
+                if (review.imageDTOList.length > 0) { // 리뷰가 존재한다면
+                  str += '    <table class="uploadResult re_table">';
+                  // 리뷰가 존재하는 만큼 for문 반복
+                  for (var i = 0; i < review.imageDTOList.length; i++) {
+                    var imageDTO = review.imageDTOList[i];
+                    var imageURL = imageDTO.url;
+                    if (review.imageDTOList[i].path != null) {
+                      str += '<tr><td class="td_img" data-file="' + imageURL + '">';
+                      str += '<img class="re_img" th:if="${imageDTO.url != null}" th:src="${imageDTO.url}"/>';
+                      str += '</td>';
+                    }
+                  }
+                }
+
+                // 닉네임
+                str += '    <td><table class="sub_table"><tr class="re_con"><td class="font font_bold re_nickname">' + review.nickname +
+                        // 별점
+                        '&nbsp;&nbsp;| grade : '+review.grade+'</td></tr>';
+                // 리뷰 내용
+                str += '    <tr class="re_con_tr"><td class="font re_content">' + review.text + '</td></tr>';
+                // 리뷰 작성 시간
+                str += '    <tr class="re_con"><td class="font re_time">' + formatTime(review.regDate) + '</td></tr>';
+
+                str += '</table></td></tr></table></div>';
+
+
+                // if (review.imageDTOList.length > 0) {
+                //   str += '    <div class="uploadResult"><ul>';
+                //
+                //   for (var i = 0; i < review.imageDTOList.length; i++) {
+                //     var imageDTO = review.imageDTOList[i];
+                //     if (review.imageDTOList[i].objectURL != null) {
+                //       str += '<li>';
+                //       str += '<img src="' + imageDTO.objectURL + '">';
+                //       str += '</li>';
+                //     }
+                //   }
+                //   str += '    </ul></div>';
+                // }
+                // str += '</div>';
+
+                $(".reviewList").html(str);
+              });
+            });
+          }
+
+          getPlaceReviews();
+
+          var reviewId;
+
+          $(".uploadResult li").click(function() {
+
+            var file = $(this).data('file');
+
+            console.log(file);
+
+            // $('.imageModal .modal-body').html("<img style='width:100%' src='/display?fileName="+file+"&size=1' >")
+
+            $(".imageModal").modal("show");
+
+          });
+
+        });
+      </script>
+
     </div>
-    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#page-content-wrapper -->
 
   </div>
   <!-- /#wrapper -->
   </body>
 </th:block>
 </html>
-
