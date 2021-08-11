@@ -32,9 +32,10 @@
       <form th:action="@{/place/review/register}" th:method="post">
 
         <div class="form-group">
-          <label >Reviewer ID</label>
-          <input type="text" class="form-control" name="userId" >
+          <label >Reviewer email</label>
+          <input type="text" class="form-control" name="email" >
         </div>
+<!--        <input type="hidden" name="placeId" th:value="${email}">-->
 
         <input type="hidden" name="placeId" th:value="${placeId}">
 

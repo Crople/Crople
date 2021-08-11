@@ -16,7 +16,6 @@ import java.util.List;
 public class ReviewDTO {
     private Long reviewId;
     private Long placeId;
-    private Long userId;
     private String nickname;
     private String email;
     private int grade;
