@@ -160,9 +160,17 @@
                 </ul>
 
                 <footer>
-                    <a href="/logout">
-                    <button type="button">로그아웃</button>
-                    </a>
+                    <div sec:authorize="hasRole('ROLE_USER')">
+                        <a href="/logout">
+                            <button type="button">로그아웃</button>
+                        </a>
+                    </div>
+
+                    <div sec:authorize="!isAuthenticated()">
+                        <a href="/login">
+                            <button type="button">로그인</button>
+                        </a>
+                    </div>
                 </footer>
             </div>
         </div>
