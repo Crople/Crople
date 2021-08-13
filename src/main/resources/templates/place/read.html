@@ -426,18 +426,38 @@
                 // }
 
 
-                // 리뷰 이미지
-                if (review.imageDTOList.length > 0) { // 리뷰가 존재한다면
-                  str += '    <table class="uploadResult re_table">';
-                  // 리뷰가 존재하는 만큼 for문 반복
-                  for (var i = 0; i < review.imageDTOList.length; i++) {
-                    var img_url = review.imgURL;
-                    str += '<tr><td class="td_img">';
-                    str += '<img class="re_img" src="' + img_url + '">';
-                    str += '</td>';
-                  }
-                }
+                // // 리뷰 이미지
+                // if (review.imageDTOList.length > 0) { // 리뷰가 존재한다면
+                //   str += '    <table class="uploadResult re_table">';
+                //   // 리뷰가 존재하는 만큼 for문 반복
+                //   for (var i = 0; i < review.imageDTOList.length; i++) {
+                //     var img_url = review.imgURL;
+                //     str += '<tr><td class="td_img">';
+                //     str += '<img class="re_img" src="' + img_url + '">';
+                //     str += '</td>';
+                //   }
+                // }
 
+
+
+                // if (review.imageDTOList.length > 0) {
+                //   str += '<table class="uploadResult re_table"><ul>';
+                //   for (var i = 0; i < review.imageDTOList.length; i++) {
+                //     var imageDTO = reveiw.imageDTOList[i];
+                //     var imageURL = imageDTO.path + "/" + imageDTO.uuid + "_" + imageDTO.imgName;
+                //     if (review.imageDTOList[i].path != null) {
+                //       str += '<li data-file"' + imageURL + '">';
+                //       str += '<img src="/display?fileName=' + imageURL + '">';
+                //       str += '</li>';
+                //     }
+                //     str += '</ul></table>';
+                //   }
+                //   str += '</div>'
+                // }
+
+
+
+                str += '<table><tr>'
 
                 // 닉네임
                 str += '    <td><table class="sub_table"><tr class="re_con"><td class="font font_bold re_nickname">' + review.nickname +
@@ -454,20 +474,23 @@
                 str += '</table></td></tr></table></div></div>';
 
 
-                // if (review.imageDTOList.length > 0) {
-                //   str += '    <div class="uploadResult"><ul>';
-                //
-                //   for (var i = 0; i < review.imageDTOList.length; i++) {
-                //     var imageDTO = review.imageDTOList[i];
-                //     if (review.imageDTOList[i].objectURL != null) {
-                //       str += '<li>';
-                //       str += '<img src="' + imageDTO.objectURL + '">';
-                //       str += '</li>';
-                //     }
-                //   }
-                //   str += '    </ul></div>';
-                // }
-                // str += '</div>';
+                if (review.imageDTOList.length > 0) {
+                  str += '    <div class="uploadResult"><ul>';
+
+                  for (var i = 0; i < review.imageDTOList.length; i++) {
+                    var imageDTO = review.imageDTOList[i];
+                    if (imageDTO.objectURL != null) {
+                      str += '<li>';
+                      str += '<img src="' + imageDTO.objectURL + '">';
+                      str += '</li>';
+                    }
+                  }
+                  str += '    </ul></div>';
+                }
+
+
+
+
 
                 $(".reviewList").html(str);
               });
