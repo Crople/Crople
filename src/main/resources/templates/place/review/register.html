@@ -3,14 +3,11 @@
 
 <th:block th:fragment="setContent(content)">
   <head>
-
     <head>
-
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-      <title>Simple Sidebar - Start Bootstrap Template</title>
-
+      <title>Crople Review Register</title>
 
       <!-- Bootstrap core CSS -->
       <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
@@ -22,43 +19,125 @@
       <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
       <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
 
+      <style>
+        html {
+          height: 100vh;
+        }
+
+        body {
+          background-color: #dddddd;
+          margin: 0px; /* 브라우저 자체 기본 margin 없애기 */
+          display: flex;
+          justify-content: center;
+          /* align-items: center; 자식 요소를 세로 가운데 정렬 */
+          height: 100vh; /* '-webkit-fill-available'이 유효하지 않을 경우를 대비 /*height: -webkit-fill-available;*/
+
+        }
+
+        #wrapper{
+          height: 100vh;
+          margin:0 auto;
+          max-width: 500px;
+          width: 100%;
+          text-align: center;
+          background-color: #FFFCF0;
+        }
+
+        header{
+          height: 40px;
+          padding-top: 0px;
+          margin-top: 0;
+          margin-left: 0;
+          margin-right: 0;
+          text-align: center;
+          align-items: center;
+          background-color: #B0A0DC;
+          padding-left: 0px;
+        }
+
+        header h4{
+          padding: 5px;
+          display: inline-block;
+          margin: auto;
+        }
+
+        .rvgroup{
+          margin-left: 12px;
+          margin-right:12px;
+          margin-top: 20px;
+        }
+        .box {
+            display: block;
+            width: 100%;
+            height: 30px;
+            border: 2px solid #B0A0DC;
+            padding: 10px 10px 10px 10px;
+            box-sizing: border-box;
+            border-radius: 10px;
+            background: #fff;
+            position: relative;
+        }
+        .boxtwo {
+            display: block;
+            width: 100%;
+            height: 50px;
+            border: 2px solid #B0A0DC;
+            padding: 10px 10px 10px 10px;
+            box-sizing: border-box;
+            border-radius: 10px;
+            background: #fff;
+            position: relative;
+        }
+
+
+      </style>
+
     </head>
 
   <body>
-
   <div class="d-flex" id="wrapper">
     <div class="container-fluid">
-      <h1 class="mt-4">Review Register Page</h1>
+
+      <header>
+        <h4>
+          리뷰 작성하기
+        </h4>
+      </header>
+
       <form th:action="@{/place/review/register}" th:method="post">
 
-        <div class="form-group">
-          <label >Reviewer ID</label>
-          <input type="text" class="form-control" name="userId" >
+        <div class="rvgroup" >
+          <h5><label>아이디</label></h5>
+          <input type="text" class="box" name="userId" >
         </div>
 
         <input type="hidden" name="placeId" th:value="${placeId}">
 
-        <div class="form-group">
-          <label >Grade <span class="grade"></span></label>
+        <div class="rvgroup">
+         <h5> <label >별점</label></h5>
+          <br>
           <div class='starrr'></div>
         </div>
 
         <input type="hidden" id="inputgrade" name="grade" value="">
 
-        <div class="form-group">
-          <label >Review Text</label>
-          <input type="text" class="form-control" name="text" placeholder="솔직한 리뷰를 적어주세요." >
+        <div class="rvgroup">
+            <h5> <label >내용 작성</label></h5>
+          <input type="text" class="boxtwo" name="text" placeholder="솔직한 리뷰를 적어주세요." >
         </div>
 
-        <div class="form-group fileForm">
-          <label >ImageFiles</label>
+
+
+        <div class="rvgroup">
+          <h5><label >👉 사진 등록! 👈</label></h5>
           <div class="custom-file">
             <input type="file" class="custom-file-input files" id="fileInput" multiple>
             <label class="custom-file-label" data-browse="Browse"></label>
           </div>
         </div>
 
-        <div class="box"></div>
+
+<!--        <div class="boxtwo"></div>-->
 
         <style>
           .uploadResult {
@@ -85,6 +164,23 @@
           .uploadResult ul li img {
             width: 100px;
           }
+          .button{
+              margin-top: 50px;
+              width: 90px;
+              height: 30px;
+              background: #B0A0DC;
+              border-radius: 32px;
+              border: none;
+          }
+          #btn_group button{
+              border: 1px solid mediumslateblue;
+              background-color: rgba(0,0,0,0);
+              color: mediumslateblue; padding: 5px;
+          }
+          #btn_group button:hover{
+              color:white;
+              background-color: #B0A0DC;
+          }
 
         </style>
 
@@ -94,7 +190,7 @@
           </ul>
         </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="button">제출하기</button>
       </form>
 
       <script th:src="@{/starrr.js}"></script>
@@ -190,11 +286,11 @@
 
             $(uploadResultArr).each(function(i, obj) {
 
-              str += "<li data-name='" + obj.fileName + "' data-path='"+obj.folderPath+"' data-uuid='"+obj.uuid+"'>";
+              str += "<li data-url='"+obj+"'>";
               str + " <div>";
-              str += "<button type='button' data-file=\'" + obj.imageURL + "\' "
+              str += "<button type='button' data-file=\'" + obj + "\' "
               str += "class='btn-warning btn-sm'>X</button><br>";
-              str += "<img src='/display?fileName=" + obj.thumbnailURL + "'>";
+              str += "<img src='" + obj + "'>";
               str += "</div>";
               str + "</li>";
             });
@@ -235,11 +331,7 @@
             $(".uploadResult li").each(function(i,obj){
               var target = $(obj);
 
-              str += "<input type='hidden' name='imageDTOList["+i+"].imgName' value='"+target.data('name') +"'>";
-
-              str += "<input type='hidden' name='imageDTOList["+i+"].path' value='"+target.data('path')+"'>";
-
-              str += "<input type='hidden' name='imageDTOList["+i+"].uuid' value='"+target.data('uuid')+"'>";
+              str += "<input type='hidden' name='imageDTOList["+i+"].objectURL' value='"+target.data('url') +"'>";
 
             });
 
@@ -256,12 +348,11 @@
     </div>
 
   </div>
-  <!-- /#page-content-wrapper -->
+  <!— /#page-content-wrapper —>
 
   </div>
-  <!-- /#wrapper -->
+  <!— /#wrapper —>
 
   </body>
 </th:block>
 </html>
-
