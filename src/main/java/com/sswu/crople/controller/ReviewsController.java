@@ -43,21 +43,21 @@ public class ReviewsController {
         return new ResponseEntity<>(reviewId, HttpStatus.OK);
     }
 
-    // review를 수정하는 메서드
-    @PutMapping("/{placeId}/{reviewId}")
-    public ResponseEntity<Long> modifyReview(@PathVariable Long reviewId, @RequestBody ReviewDTO placeReviewDTO){
-        log.info("--------------------modify PlaceReview----------------");
-        log.info("reviewDTO: " + placeReviewDTO);
-        reviewService.modify(placeReviewDTO);
-        return new ResponseEntity<>(reviewId, HttpStatus.OK);
-    }
-
-    //review를 삭제하는 메서드
-    @DeleteMapping("{placeId}/{reviewId}")
-    public ResponseEntity<Long> removeReview(@PathVariable Long reviewId){
-        log.info("--------------------modify removeReview----------------");
-        log.info("reviewDTO: " + reviewId);
-        reviewService.remove(reviewId);
-        return new ResponseEntity<>(reviewId, HttpStatus.OK);
-    }
+//    // review를 수정하는 메서드
+//    @PutMapping("/{placeId}/{reviewId}")
+//    public ResponseEntity<Long> modifyReview(@PathVariable Long reviewId, @RequestBody ReviewDTO placeReviewDTO){
+//        log.info("--------------------modify PlaceReview----------------");
+//        log.info("reviewDTO: " + placeReviewDTO);
+//        reviewService.modify(placeReviewDTO);
+//        return new ResponseEntity<>(reviewId, HttpStatus.OK);
+//    }
+//
+//    //review를 삭제하는 메서드
+//    @DeleteMapping("{placeId}/{reviewId}")
+//    public ResponseEntity<Long> removeReview(@PathVariable Long reviewId){
+//        log.info("--------------------modify removeReview----------------");
+//        log.info("reviewDTO: " + reviewId);
+//        reviewService.remove(reviewId);
+//        return new ResponseEntity<>(reviewId, HttpStatus.OK);
+//    }
 }
