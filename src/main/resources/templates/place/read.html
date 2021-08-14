@@ -65,7 +65,6 @@
         width: 100%;
         height: 10vh;
         background-color: #FFFCF0;
-        /*text-align: center;*/
       }
       .header_table {
         max-width: 500px;
@@ -210,22 +209,13 @@
         margin-top: 10px;
         margin-left: 15px;
       }
+      .re_content {
+        margin-top: 5px;
+      }
       .re_time {
         text-align: right;
         font-size: 10pt;
         color: #6A60A9;
-      }
-      .del_td {
-        padding-left: 7px;
-        width: 35px;
-      }
-      .re_del {
-        width: 30px;
-        height: 25px;
-        border: 0px;
-        background-color: #6A60A9;
-        color: white;
-        font-size: 9.5px;
       }
       .review_background {
         background-color: #FFFCF0;
@@ -244,7 +234,26 @@
         margin: 0px;
         padding: 0px;
       }
-
+      .sung_pick {
+        font-size: 10pt;
+        font-weight: bold;
+        color: #6A60A9;
+        margin-right: 1px;
+      }
+      .suryong {
+        width: 19px;
+        height: 16px;
+      }
+      .star_div {
+        display: inline;
+      }
+      .star {
+        width: 13px;
+        height: 13px;
+      }
+      /*td, tr {*/
+      /*  border: 1px solid deepskyblue;*/
+      /*}*/
     </style>
 
   <body>
@@ -306,12 +315,6 @@
                       [[${dto.menu}]]
                   </button>
                   </li>
-<!--                  <li>-->
-<!--                    <button class="copy_add_tel">-->
-<!--                      <img class="loca_menu" src="https://image.flaticon.com/icons/png/128/25/25436.png">-->
-<!--                      페이지 복사-->
-<!--                    </button>-->
-<!--                  </li>-->
                 </ul>
               </td>
             </tr>
@@ -350,8 +353,7 @@
 
       <script>
 
-        var imgList;
-        var i = 0;
+        var sungshin = "sungshin.ac.kr";
 
         $(document).ready(function(e) {
 
@@ -389,8 +391,28 @@
 
                 img_length = review.imageDTOList.length;
 
+
                 if (img_length > 0) {
+
+                  // 성신이메일을 사용한다면 성신여대 학생으로 간주
+                  var email_length = review.email.length;
+                  var isSungshin = review.email.substr(email_length-14, 14);
+                  if (isSungshin == "sungshin.ac.kr") {
+                    isSungshin = '<span class="sung_pick">   성신픽</span>' + '<img class="suryong"' +
+                         'src="https://image.flaticon.com/icons/png/128/2528/2528652.png">';
+                  }
+                  else
+                    isSungshin = ' ';
+
+                  var star = '<div class="star_div">';
+                  // 별점 등급을 별 사진으로 대체
+                  for (var i=0; i < review.grade; i++) {
+                    star += '<img class="star" src="https://image.flaticon.com/icons/png/128/3839/3839663.png">'
+                  }
+                  star += '</div>';
+
                   if (img_length == 1) {
+
                     str += '    <table class="re_table review_background"><tr><td><div class="uploadResult">';
                     // 리뷰 사진 중 첫 장은 무조건 보여준다.
                     var imageDTO = review.imageDTOList[0];
@@ -399,18 +421,23 @@
                     }
                     str += '    </div></td><td>';
 
-                    // 닉네임
-                    str += '    <table class="sub_table1"><tr class="re_con"><td class="font font_bold re_nickname">' + review.nickname +
-                            // 별점
-                            '&nbsp;&nbsp;| grade : '+review.grade+'</td></tr>';
+
+                    // 유저 닉네임이 다섯 글자 이상이라면 별점을 닉네임 아랫줄로 내린다.
+                    if (review.nickname.length > 5) {
+                      str += '    <table class="sub_table1"><tr class="re_con"><td class="font font_bold re_nickname">' + review.nickname + isSungshin + '</td></tr>';
+                              // 별점
+                      str += '<tr><td class="font font_bold re_nickname">별점 ' + star + '</td></tr>';
+                    }
+                    else {
+                      // 닉네임
+                      str += '    <table class="sub_table1"><tr class="re_con"><td class="font font_bold re_nickname">' + review.nickname + isSungshin +
+                              // 별점
+                              '| 별점 ' + star + '</td></tr>';
+                    }
                     // 리뷰 내용
                     str += '    <tr class="re_con_tr"><td class="font re_content">' + review.text + '</td></tr>';
                     // 리뷰 작성 시간
                     str += '    <tr class="re_con"><td class="font re_time">' + formatTime(review.regDate) + '</td>';
-                    // 리뷰 삭제 버튼
-                    str += '    <td class="font del_td">' +
-                            // '<button onclick="index.replyDelete(${board.id}, ${reply.id})">삭제</button>'
-                            '<button class="re_del" onclick="">삭제</button></td></tr>'
                     str += '</table></td></tr></table></div></div>';
                   }
 
@@ -425,17 +452,13 @@
                     }
                     str += '</tr>';
                     // 닉네임
-                    str += '    <table class="sub_table2"><tr class="re_con"><td class="font font_bold re_nickname">' + review.nickname +
+                    str += '    <table class="sub_table2"><tr class="re_con"><td class="font font_bold re_nickname">' + review.nickname + isSungshin +
                             // 별점
-                            '&nbsp;&nbsp;| grade : '+review.grade+'</td></tr>';
+                            '| 별점 ' + star + '</td></tr>';
                     // 리뷰 내용
                     str += '    <tr class="re_con_tr"><td class="font re_content">' + review.text + '</td></tr>';
                     // 리뷰 작성 시간
                     str += '    <tr class="re_con"><td class="font re_time">' + formatTime(review.regDate) + '</td>';
-                    // 리뷰 삭제 버튼
-                    str += '    <td class="font del_td">' +
-                            // '<button onclick="index.replyDelete(${board.id}, ${reply.id})">삭제</button>'
-                            '<button class="re_del" onclick="">삭제</button></td></tr>'
                     str += '</table></td></tr></table></div></div>';
                   }
                   // 리뷰 사진이 세 장일 때
@@ -449,17 +472,13 @@
                     }
                     str += '</tr>';
                     // 닉네임
-                    str += '    <table class="sub_table2"><tr class="re_con"><td class="font font_bold re_nickname">' + review.nickname +
+                    str += '    <table class="sub_table2"><tr class="re_con"><td class="font font_bold re_nickname">' + review.nickname + isSungshin +
                             // 별점
-                            '&nbsp;&nbsp;| grade : '+review.grade+'</td></tr>';
+                            '| 별점 ' + star + '</td></tr>';
                     // 리뷰 내용
                     str += '    <tr class="re_con_tr"><td class="font re_content">' + review.text + '</td></tr>';
                     // 리뷰 작성 시간
                     str += '    <tr class="re_con"><td class="font re_time">' + formatTime(review.regDate) + '</td>';
-                    // 리뷰 삭제 버튼
-                    str += '    <td class="font del_td">' +
-                            // '<button onclick="index.replyDelete(${board.id}, ${reply.id})">삭제</button>'
-                            '<button class="re_del" onclick="">삭제</button></td></tr>'
                     str += '</table></td></tr></table></div></div>';
                   }
                 }
@@ -467,9 +486,7 @@
                 $(".reviewList").html(str);
               });
             });
-
             i++;
-
           }
 
           getPlaceReviews();
