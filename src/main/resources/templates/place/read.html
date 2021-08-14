@@ -101,10 +101,6 @@
         width: 25px;
         height: 25px;
       }
-      .back_btn_img {
-        width: 30px;
-        height: 30px;
-      }
       .review_btn_img {
         width: 35px;
         height: 35px;
@@ -142,7 +138,6 @@
       }
       li {
         list-style: none;
-        /*margin-top: 3px;*/
         margin: 0px;
         padding-left: 10px;
         font-family: 'Jua', sans-serif;
@@ -251,9 +246,12 @@
         width: 13px;
         height: 13px;
       }
-      /*td, tr {*/
-      /*  border: 1px solid deepskyblue;*/
-      /*}*/
+      .isRecent {
+        width: 23px;
+        height: 23px;
+        margin-right: 1px;
+        margin-bottom: 3px;
+      }
     </style>
 
   <body>
@@ -375,12 +373,26 @@
                       date.getMinutes();
             }
 
+            // 해당 년도를 리턴한다.
+            function year(str) {
+              var year = new Date(str);
+              return year.getFullYear();
+            }
+            // 해당 월을 리턴한다.
+            function month(str) {
+              var month = new Date(str);
+              return month.getMonth() + 1;
+            }
+            // 해당 일을 리턴한다.
+            function day(str) {
+              var day = new Date(str);
+              return day.getDate();
+            }
+
             $.getJSON("/reviews/"+ placeId +"/all", function(arr) {
               var str = "";
 
               $.each(arr, function (idx, review) {
-
-                console.log(review);
 
                 $(".starrr").starrr({
                   rating:review.grade,
@@ -390,7 +402,6 @@
                 str += '    <div class="re_back"><div class="re_div" data-reviewId=' + review.reviewId + ' data-mid=' + review.email + '>';
 
                 img_length = review.imageDTOList.length;
-
 
                 if (img_length > 0) {
 
@@ -411,6 +422,22 @@
                   }
                   star += '</div>';
 
+                  // 현재 날짜
+                  var today = new Date();
+                  var yyyy = today.getFullYear();
+                  var mm = today.getMonth()+1;
+                  var dd = today.getDate();
+
+                  // 최신 댓글
+                  var isRecent = '';
+                  if (year(review.regDate) == yyyy) {
+                    if (month(review.regDate) == mm) {
+                      if (day(review.regDate) >= dd - 3) {
+                        isRecent += '<img class="isRecent" src="https://image.flaticon.com/icons/png/128/4014/4014801.png">';
+                      }
+                    }
+                  }
+
                   if (img_length == 1) {
 
                     str += '    <table class="re_table review_background"><tr><td><div class="uploadResult">';
@@ -420,7 +447,6 @@
                       str += '<img class="review_img" src="' + imageDTO.objectURL + '">';
                     }
                     str += '    </div></td><td>';
-
 
                     // 유저 닉네임이 다섯 글자 이상이라면 별점을 닉네임 아랫줄로 내린다.
                     if (review.nickname.length > 5) {
@@ -437,10 +463,9 @@
                     // 리뷰 내용
                     str += '    <tr class="re_con_tr"><td class="font re_content">' + review.text + '</td></tr>';
                     // 리뷰 작성 시간
-                    str += '    <tr class="re_con"><td class="font re_time">' + formatTime(review.regDate) + '</td>';
+                    str +=     '<tr class="re_con"><td class="font re_time">' + isRecent + formatTime(review.regDate) + '</td>';
                     str += '</table></td></tr></table></div></div>';
                   }
-
                   // 리뷰 사진이 두 장일 때
                   if (img_length == 2) {
                     str += '    <table class="review_background"><tr>';
@@ -458,7 +483,7 @@
                     // 리뷰 내용
                     str += '    <tr class="re_con_tr"><td class="font re_content">' + review.text + '</td></tr>';
                     // 리뷰 작성 시간
-                    str += '    <tr class="re_con"><td class="font re_time">' + formatTime(review.regDate) + '</td>';
+                    str +=     '<tr class="re_con"><td class="font re_time">' + isRecent + formatTime(review.regDate) + '</td>';
                     str += '</table></td></tr></table></div></div>';
                   }
                   // 리뷰 사진이 세 장일 때
@@ -478,11 +503,10 @@
                     // 리뷰 내용
                     str += '    <tr class="re_con_tr"><td class="font re_content">' + review.text + '</td></tr>';
                     // 리뷰 작성 시간
-                    str += '    <tr class="re_con"><td class="font re_time">' + formatTime(review.regDate) + '</td>';
+                    str +=     '<tr class="re_con"><td class="font re_time">' + isRecent + formatTime(review.regDate) + '</td>';
                     str += '</table></td></tr></table></div></div>';
                   }
                 }
-
                 $(".reviewList").html(str);
               });
             });
@@ -506,22 +530,6 @@
           });
 
         });
-
-        var num = 0;
-
-        function before_next(idx, id) {
-          if (idx) { // 다음
-            // 마지막 이미지에 도달하면 다시 첫 이미지로 돌아간다.
-            if (num == img_length - 1) num = 0;
-            else num++;
-            // 처음 이미지에서 더 뒤로 가면 마지막 이미지로 간다.
-          } else { // 이전
-            if (num == 0) num = img_length - 1;
-            else num--;
-          }
-          var imgTag = document.getElementById('review_img');
-          imgTag.setAttribute("src", imgList[num].objectURL);
-        }
 
       </script>
 
