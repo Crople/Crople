@@ -19,7 +19,7 @@ public class WebController {
 
     @GetMapping("/")
     public String index() {
-        return "index";
+        return "redirect:/place/list";
     }
 
     @PostMapping("/upload")

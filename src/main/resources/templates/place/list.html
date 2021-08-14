@@ -159,10 +159,19 @@
                     </li>
                 </ul>
 
-                <a th:href="@{/place/register}">
-                    <button type="button" class="btn btn-outline-primary">place 등록 (관리자 기능)</button>
-                </a>
+                <footer>
+                    <div sec:authorize="hasRole('ROLE_USER')">
+                        <a href="/logout">
+                            <button type="button">로그아웃</button>
+                        </a>
+                    </div>
 
+                    <div sec:authorize="!isAuthenticated()">
+                        <a href="/login">
+                            <button type="button">로그인</button>
+                        </a>
+                    </div>
+                </footer>
             </div>
         </div>
     </div>
