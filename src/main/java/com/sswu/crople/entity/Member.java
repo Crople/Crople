@@ -2,10 +2,8 @@ package com.sswu.crople.entity;
 
 import lombok.*;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.swing.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,5 +28,9 @@ public class Member {
 
     public void addMemberRole(MemberRole memberRole){
         roleSet.add(memberRole);
+    }
+
+    public void changeNickname(String nickname){
+        this.nickname = nickname;
     }
 }

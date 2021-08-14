@@ -20,16 +20,14 @@ public class MemberTests {
     private PasswordEncoder passwordEncoder;
 
     @Test
-    public void insertDummies(){
-        IntStream.rangeClosed(1, 10).forEach(i ->{
+    public void createAdmin(){
             Member member = Member.builder()
-                    .email("user" + i + "@sungshin.ac.kr")
-                    .nickname("testuser" + i)
-                    .password(passwordEncoder.encode("12345678"))
+                    .email("admin")
+                    .nickname("admin")
+                    .password(passwordEncoder.encode("crople1919"))
                     .build();
-            member.addMemberRole(MemberRole.USER);
+            member.addMemberRole(MemberRole.ADMIN);
 
             repository.save(member);
-        });
     }
 }
