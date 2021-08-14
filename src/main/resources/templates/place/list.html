@@ -35,6 +35,15 @@
                 height: -webkit-fill-available;
             }
 
+            a {
+                text-decoration: none;
+                color: #6f42c1;
+            }
+
+            li{
+                list-style: none;
+            }
+
             #wrapper{
                 height: 100vh;
                 margin:0 auto;
@@ -60,6 +69,33 @@
                 padding: 5px;
                 display: inline-block;
                 margin: auto;
+            }
+
+            #menu{
+                height: 30px;
+                margin: 0 auto;
+            }
+
+            #menu ul{
+                height: 30px;
+                margin: 0 auto;
+            }
+
+            #menu ul li{
+                display: block;
+                margin: 10px;
+                float: left;
+                width: 80px;
+                height: 30px;
+                line-height: 30px;
+                text-align: center;
+                background-color: #9c88dc;
+                /*border: 1px solid #B0A0DC;*/
+                border-radius: 1em;
+            }
+
+            #menu ul li a{
+                color: white;
             }
 
             .row{
@@ -126,6 +162,15 @@
                     </h4>
                 </header>
 
+                <div id="menu">
+                    <ul>
+                        <li><a th:href="@{/place/list(type = 밥집, page=1)}">맛집</a></li>
+                        <li><a th:href="@{/place/list(type = 술집, page=1)}">술집</a></li>
+                        <li><a th:href="@{/place/list(type = 카페, page=1)}">카페</a></li>
+                        <li><a th:href="@{/place/list(type = 놀거리, page=1)}">놀거리</a></li>
+                    </ul>
+                </div>
+
                 <div class="row" th:each="dto: ${result.dtoList}">
                     <img th:if="${dto.imgURL != null}"
                          th:src="${dto.imgURL}" >
@@ -147,13 +192,13 @@
                     </li>
 
                     <li th:class=" 'page-item ' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
-                        <a class="page-link" th:href="@{/place/list(page = ${page})}">
+                        <a class="page-link" th:href="@{/place/list(page = ${page}, type = ${result.dtoList[0].type})}">
                             [[${page}]]
                         </a>
                     </li>
 
                     <li class="page-item" th:if="${result.next}">
-                        <a class="page-link" th:href="@{/place/list(page= ${result.end + 1} )}">
+                        <a class="page-link" th:href="@{/place/list(page= ${result.end + 1})}">
                             Next
                         </a>
                     </li>
@@ -175,6 +220,9 @@
             </div>
         </div>
     </div>
+
+    <script>
+    </script>
     </body>
 </th:block>
 </html>

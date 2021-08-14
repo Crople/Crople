@@ -48,6 +48,10 @@ public class PlaceController {
     public void list(PageRequestDTO pageRequestDTO, Model model){
         log.info("pageRequestDTO: " + pageRequestDTO);
 
+        if(pageRequestDTO.getType() == null){
+            pageRequestDTO.setType("밥집");
+        }
+
         // result라는 이름의 attribute로 pageRequestDTO의 page, size에 해당하는 List<PlaceDTO>를 html로 전송
         model.addAttribute("result", placeService.getList(pageRequestDTO));
     }
