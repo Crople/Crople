@@ -39,7 +39,7 @@ public class PlaceServiceImpl implements PlaceService{
     public PageResultDTO<PlaceDTO, Object[]> getList(PageRequestDTO requestDTO) {
         Pageable pageable = requestDTO.getPageable(Sort.by("placeId").descending());
 
-        Page<Object[]> result = placeRepository.getListPage(pageable);
+        Page<Object[]> result = placeRepository.getListPage(requestDTO.getType(),pageable);
 
         Function<Object[], PlaceDTO> fn = (arr -> entityToDTO(
                 (Place) arr[0],
