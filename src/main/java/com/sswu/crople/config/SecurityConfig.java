@@ -25,9 +25,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/place/review/register").hasRole("USER");
 
-        http.formLogin();
+        http.formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/login_post")
+                .defaultSuccessUrl("/place/list");
+
         http.logout();
-        http.oauth2Login();
+        http.oauth2Login()
+                .loginPage("/login");
+
 //        http.formLogin()
 //                .loginPage("/login")
 //                .permitAll()
