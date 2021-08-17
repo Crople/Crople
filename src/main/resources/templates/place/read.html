@@ -372,7 +372,7 @@
 
           var placeId = [[${dto.placeId}]];
           var reviewModal = $(".reviewModal");
-          var inputUserId = $('input[name="userId"]');
+          var inputEmail = $('input[name="email"]');
           var inputText = $('input[name="text"]');
 
           //페이지가 열리면 바로 리뷰 데이터들을 가져와서 사용한다.
@@ -414,7 +414,7 @@
                   readOnly: true
                 })
 
-                str += '    <div class="re_back"><div class="re_div" data-reviewId=' + review.reviewId + ' data-mid=' + review.email + '>';
+                str += '    <div class="re_back"><div class="re_div" data-reviewId=' + review.reviewId + ' data-mid=' + review.nickname + '>';
 
                 img_length = review.imageDTOList.length;
 
