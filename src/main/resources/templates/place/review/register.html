@@ -1,260 +1,360 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">-->
 <th:block th:fragment="setContent(content)">
-  <head>
-
     <head>
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <title>Crople Review Register</title>
 
-      <title>Simple Sidebar - Start Bootstrap Template</title>
+            <!-- Bootstrap core CSS -->
+            <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
 
-      <!-- Bootstrap core CSS -->
-      <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+            <!-- Custom styles for this template -->
+            <link th:href="@{/css/simple-sidebar.css}" rel="stylesheet">
 
-      <!-- Custom styles for this template -->
-      <link th:href="@{/css/simple-sidebar.css}" rel="stylesheet">
+            <!-- Bootstrap core JavaScript -->
+            <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+            <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
 
-      <!-- Bootstrap core JavaScript -->
-      <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
-      <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+            <style>
+                html {
+                    height: -webkit-fill-available;
+                }
 
-    </head>
+                body {
+                    background-color: #dddddd;
+                    margin: 0px; /* 브라우저 자체 기본 margin 없애기 */
+                    display: flex;
+                    justify-content: center;
+                    /* align-items: center; 자식 요소를 세로 가운데 정렬 */
+                    height: 100vh; /* '-webkit-fill-available'이 유효하지 않을 경우를 대비 */
+                    height: -webkit-fill-available;
+                }
 
-  <body>
-  <div class="d-flex" id="wrapper">
-    <div class="container-fluid">
-      <h1 class="mt-4">Review Register Page</h1>
-      <form th:action="@{/place/review/register}" th:method="post">
+                #wrapper{
+                    height: 100vh;
+                    margin:0 auto;
+                    max-width: 500px;
+                    width: 100%;
+                    text-align: center;
+                    background-color: #FFFCF0;
+                }
 
-        <div class="form-group">
-          <label >Reviewer ID</label>
-          <input type="text" class="form-control" name="email" >
+                header{
+                    height: 40px;
+                    padding-top: 0px;
+                    margin-top: 0;
+                    margin-left: 0;
+                    margin-right: 0;
+                    text-align: center;
+                    align-items: center;
+                    background-color: #B0A0DC;
+                    padding-left: 0px;
+                }
+
+                header h4{
+                    padding: 5px;
+                    display: inline-block;
+                    margin: auto;
+                    font-family: 'Jua', sans-serif;
+                }
+                label h4{
+                    padding: 5px;
+                    display: inline-block;
+                    margin: auto;
+                    font-family: 'Jua', sans-serif;
+                }
+                label h6{
+                    padding: 5px;
+                    display: inline-block;
+                    margin: auto;
+                    font-family: 'Jua', sans-serif;
+                }
+                .rvgroup{
+                    margin-left: 12px;
+                    margin-right:12px;
+                    margin-top: 20px;
+                }
+                .boxtwo {
+                    display: block;
+                    width: 100%;
+                    height: 50px;
+                    border: 2px solid #B0A0DC;
+                    padding: 10px 10px 10px 10px;
+                    box-sizing: border-box;
+                    border-radius: 10px;
+                    background: #fff;
+                    position: relative;
+                }
+
+                .font {
+                    font-family: 'Jua', sans-serif;
+                }
+
+            </style>
+
+        </head>
+
+    <body>
+    <div class="d-flex" id="wrapper">
+        <div class="container-fluid">
+
+            <header>
+                <h4>
+                    리뷰 작성하기 📝
+                </h4>
+
+            </header>
+<!--            <img src="https://crople-bucket.s3.ap-northeast-2.amazonaws.com//resource/%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8_%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%82%E1%85%B3%E1%86%AB_%E1%84%8B%E1%85%A1%E1%84%90%E1%85%B3%E1%84%8B%E1%85%AF%E1%84%8F%E1%85%B3+2.png " width="30" height="30">-->
+            <form th:action="@{/place/review/register}" th:method="post">
+
+<!--                <div class="rvgroup" >-->
+<!--                    <h4><label>Reviewer ID</label></h4>-->
+<!--                    <input type="text" class="form-control" name="email" th:value="${email}" >-->
+<!--                </div>-->
+                <br><br>
+                <input type="hidden" name="email" th:value="${email}">
+
+                <input type="hidden" name="placeId" th:value="${placeId}">
+
+                <div class="rvgroup">
+                    <label><h4>이 장소는 어떠셨어요?👀 </h4> </label>
+                    <input type="text" class="boxtwo" name="text" placeholder="솔직한 리뷰를 적어주세요." >
+                    <br>
+                </div>
+
+
+                <div class="rvgroup">
+                   <label><h4> 별점👍 </h4></label>
+                    <br>
+                    <div class='starrr'></div>
+                </div>
+
+                <input type="hidden" id="inputgrade" name="grade" value="">
+                <br>
+                <br>
+<!--                <div class="rvgroup">-->
+<!--                 <h4> <label >내용 작성하기</label></h4>-->
+<!--                    <input type="text" class="form-control" name="text" placeholder="솔직한 리뷰를 적어주세요." >-->
+<!--                </div>-->
+
+                <div class="form-group fileForm">
+                    <label ><h4>👉 사진 등록 👈</h4></label>
+                    <br>
+                    <label ><h6>최대 3장까지 허용됩니다.</h6></label>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input files" id="fileInput" multiple>
+                        <label class="custom-file-label" data-browse="Browse"></label>
+                    </div>
+                </div>
+
+                <div class="box"></div>
+
+                <style>
+                    .uploadResult {
+                        width: 100%;
+                        background-color: peachpuff;
+                        margin-top: 10px;
+                    }
+
+                    .uploadResult ul {
+                        display: flex;
+                        flex-flow: row;
+                        justify-content: center;
+                        align-items: center;
+                        vertical-align: top;
+                        overflow: auto;
+                    }
+
+                    .uploadResult ul li {
+                        list-style: none;
+                        padding: 10px;
+                        margin-left: 2em;
+                    }
+
+                    .uploadResult ul li img {
+                        width: 100px;
+                    }
+
+
+                </style>
+
+                <div class="uploadResult">
+                    <ul>
+
+                    </ul>
+                </div>
+                <br>
+<!--                btn btn-primary-->
+                <button type="submit" class="btn btn-primary">리뷰 완료✔</button>
+            </form>
+
+            <script th:src="@{/starrr.js}"></script>
+            <link th:href="@{/css/starrr.css}" rel="stylesheet">
+            <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
+
+            <script>
+                $(document).ready(function(e) {
+
+                    var grade = 0;
+                    document.getElementById('inputgrade').value = grade;
+
+                    $('.starrr').starrr({
+                        rating: grade,
+                        change: function(e, value){
+                            if (value) {
+                                console.log(value);
+                                grade = value;
+                                console.log(grade);
+                            }
+                        }
+                    });
+
+                    var regex = new RegExp("(.*?)\.(exe|sh|zip|alz|tiff)$");
+                    var maxSize = 10485760; //10MB
+
+                    function checkExtension(fileName, fileSize){
+
+                        if(fileSize >= maxSize){
+                            alert("파일 사이즈 초과");
+                            return false;
+                        }
+
+                        if(regex.test(fileName)){
+                            alert("해당 종류의 파일은 업로드할 수 없습니다.");
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    $(".custom-file-input").on("change", function() {
+
+                        var fileName = $(this).val().split("\\").pop();
+                        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+
+                        var formData = new FormData();
+                        var inputFile = $(this);
+                        var files = inputFile[0].files;
+                        var appended = false;
+
+                        for (var i = 0; i < files.length; i++) {
+
+                            if(!checkExtension(files[i].name, files[i].size) ){
+                                return false;
+                            }
+
+                            console.log(files[i]);
+                            formData.append("uploadFiles", files[i]);
+                            appended = true;
+                        }
+
+                        //upload를 하지 않는다.
+                        if (!appended) {return;}
+
+                        for (var value of formData.values()) {
+                            console.log(value);
+                        }
+
+                        //실제 업로드 부분
+                        //upload ajax
+                        $.ajax({
+                            url: '/uploadAjax',
+                            processData: false,
+                            contentType: false,
+                            data: formData,
+                            type: 'POST',
+                            dataType:'json',
+                            success: function(result){
+                                console.log(result);
+                                showResult(result);
+                            },
+                            error: function(jqXHR, textStatus, errorThrown){
+                                console.log(textStatus);
+                            }
+                        }); //$.ajax
+                    }); //end change event
+
+                    function showResult(uploadResultArr){
+
+                        var uploadUL = $(".uploadResult ul");
+
+                        var str ="";
+
+                        $(uploadResultArr).each(function(i, obj) {
+
+                            str += "<li data-url='"+obj+"'>";
+                            str + " <div>";
+                            str += "<button type='button' data-file=\'" + obj + "\' "
+                            str += "class='btn-warning btn-sm'>X</button><br>";
+                            str += "<img src='" + obj + "'>";
+                            str += "</div>";
+                            str + "</li>";
+                        });
+
+                        uploadUL.append(str);
+                    }
+
+                    $(".uploadResult ").on("click", "li button", function(e){
+
+                        console.log("delete file");
+
+                        var targetFile = $(this).data("file");
+
+                        var targetLi = $(this).closest("li");
+
+                        $.ajax({
+                            url: '/removeFile',
+                            data: {fileName: targetFile},
+                            dataType:'text',
+                            type: 'POST',
+                            success: function(result){
+                                alert(result);
+
+                                targetLi.remove();
+                            }
+                        }); //$.ajax
+                    });
+
+                    //prevent submit
+                    $(".btn-primary").on("click", function(e) {
+                        e.preventDefault();
+
+                        $('input[name=grade]').attr('value',grade);
+                        console.log(grade);
+
+                        var str = "";
+
+                        $(".uploadResult li").each(function(i,obj){
+                            var target = $(obj);
+
+                            str += "<input type='hidden' name='imageDTOList["+i+"].objectURL' value='"+target.data('url') +"'>";
+
+                        });
+
+                        //태그들이 추가된 것을 확인한 후에 comment를 제거
+                        $(".box").html(str);
+
+                        $("form").submit();
+
+                    });
+
+                }); //document ready
+            </script>
+
         </div>
-
-        <input type="hidden" name="placeId" th:value="${placeId}">
-
-        <div class="form-group">
-          <label >Grade <span class="grade"></span></label>
-          <div class='starrr'></div>
-        </div>
-
-        <input type="hidden" id="inputgrade" name="grade" value="">
-
-        <div class="form-group">
-          <label >Review Text</label>
-          <input type="text" class="form-control" name="text" placeholder="솔직한 리뷰를 적어주세요." >
-        </div>
-
-        <div class="form-group fileForm">
-          <label >ImageFiles</label>
-          <div class="custom-file">
-            <input type="file" class="custom-file-input files" id="fileInput" multiple>
-            <label class="custom-file-label" data-browse="Browse"></label>
-          </div>
-        </div>
-
-        <div class="box"></div>
-
-        <style>
-          .uploadResult {
-            width: 100%;
-            background-color: gray;
-            margin-top: 10px;
-          }
-
-          .uploadResult ul {
-            display: flex;
-            flex-flow: row;
-            justify-content: center;
-            align-items: center;
-            vertical-align: top;
-            overflow: auto;
-          }
-
-          .uploadResult ul li {
-            list-style: none;
-            padding: 10px;
-            margin-left: 2em;
-          }
-
-          .uploadResult ul li img {
-            width: 100px;
-          }
-
-        </style>
-
-        <div class="uploadResult">
-          <ul>
-
-          </ul>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-
-      <script th:src="@{/starrr.js}"></script>
-      <link th:href="@{/css/starrr.css}" rel="stylesheet">
-      <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
-
-      <script>
-        $(document).ready(function(e) {
-
-          var grade = 0;
-          document.getElementById('inputgrade').value = grade;
-
-          $('.starrr').starrr({
-            rating: grade,
-            change: function(e, value){
-              if (value) {
-                console.log(value);
-                grade = value;
-                console.log(grade);
-              }
-            }
-          });
-
-          var regex = new RegExp("(.*?)\.(exe|sh|zip|alz|tiff)$");
-          var maxSize = 10485760; //10MB
-
-          function checkExtension(fileName, fileSize){
-
-            if(fileSize >= maxSize){
-              alert("파일 사이즈 초과");
-              return false;
-            }
-
-            if(regex.test(fileName)){
-              alert("해당 종류의 파일은 업로드할 수 없습니다.");
-              return false;
-            }
-            return true;
-          }
-
-          $(".custom-file-input").on("change", function() {
-
-            var fileName = $(this).val().split("\\").pop();
-            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-
-            var formData = new FormData();
-            var inputFile = $(this);
-            var files = inputFile[0].files;
-            var appended = false;
-
-            for (var i = 0; i < files.length; i++) {
-
-              if(!checkExtension(files[i].name, files[i].size) ){
-                return false;
-              }
-
-              console.log(files[i]);
-              formData.append("uploadFiles", files[i]);
-              appended = true;
-            }
-
-            //upload를 하지 않는다.
-            if (!appended) {return;}
-
-            for (var value of formData.values()) {
-              console.log(value);
-            }
-
-            //실제 업로드 부분
-            //upload ajax
-            $.ajax({
-              url: '/uploadAjax',
-              processData: false,
-              contentType: false,
-              data: formData,
-              type: 'POST',
-              dataType:'json',
-              success: function(result){
-                console.log(result);
-                showResult(result);
-              },
-              error: function(jqXHR, textStatus, errorThrown){
-                console.log(textStatus);
-              }
-            }); //$.ajax
-          }); //end change event
-
-          function showResult(uploadResultArr){
-
-            var uploadUL = $(".uploadResult ul");
-
-            var str ="";
-
-            $(uploadResultArr).each(function(i, obj) {
-
-              str += "<li data-url='"+obj+"'>";
-              str + " <div>";
-              str += "<button type='button' data-file=\'" + obj + "\' "
-              str += "class='btn-warning btn-sm'>X</button><br>";
-              str += "<img src='" + obj + "'>";
-              str += "</div>";
-              str + "</li>";
-            });
-
-            uploadUL.append(str);
-          }
-
-          $(".uploadResult ").on("click", "li button", function(e){
-
-            console.log("delete file");
-
-            var targetFile = $(this).data("file");
-
-            var targetLi = $(this).closest("li");
-
-            $.ajax({
-              url: '/removeFile',
-              data: {fileName: targetFile},
-              dataType:'text',
-              type: 'POST',
-              success: function(result){
-                alert(result);
-
-                targetLi.remove();
-              }
-            }); //$.ajax
-          });
-
-          //prevent submit
-          $(".btn-primary").on("click", function(e) {
-            e.preventDefault();
-
-            $('input[name=grade]').attr('value',grade);
-            console.log(grade);
-
-            var str = "";
-
-            $(".uploadResult li").each(function(i,obj){
-              var target = $(obj);
-
-              str += "<input type='hidden' name='imageDTOList["+i+"].objectURL' value='"+target.data('url') +"'>";
-
-            });
-
-            //태그들이 추가된 것을 확인한 후에 comment를 제거
-            $(".box").html(str);
-
-            $("form").submit();
-
-          });
-
-        }); //document ready
-      </script>
 
     </div>
+    <!— /#page-content-wrapper —>
 
-  </div>
-  <!-- /#page-content-wrapper -->
+    </div>
+    <!— /#wrapper —>
 
-  </div>
-  <!-- /#wrapper -->
-
-  </body>
+    </body>
 </th:block>
 </html>
