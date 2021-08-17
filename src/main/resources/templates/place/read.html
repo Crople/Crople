@@ -31,7 +31,7 @@
 
     <style>
       html {
-        height: auto;
+        min-height: 100%;
       }
       body {
         background-color: #dddddd;
@@ -39,7 +39,7 @@
         display: flex;
         justify-content: center;
         /* align-items: center; 자식 요소를 세로 가운데 정렬 */
-        height: auto; /* '-webkit-fill-available'이 유효하지 않을 경우를 대비 */
+        min-height: 100%; /* '-webkit-fill-available'이 유효하지 않을 경우를 대비 */
         height: -webkit-fill-available;
         font-family: 'Jua', sans-serif;
       }
@@ -47,7 +47,7 @@
       *:focus { border:none; outline:none; }
       /*전체를 감싸는 div 태그의 id*/
       #wrap {
-        height: auto;
+        min-height: 100%;
         margin: 0 auto;
         max-width: 500px;
         width: 100%;
@@ -273,7 +273,7 @@
     </style>
 
   <body>
-  <div class="d-flex" id="wrap">
+  <div id="wrap">
     <div class="container-fluid">
       <div class="header">
         <table class="header_table">
