@@ -22,7 +22,7 @@ public class CropleOAuthUserDetailsService extends DefaultOAuth2UserService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
-    static int numOfUser = 0;
+    static int numOfUser = 1;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -55,7 +55,7 @@ public class CropleOAuthUserDetailsService extends DefaultOAuth2UserService {
 
         Member member = Member.builder()  //email(email)내가 추가함
                 .email(email)
-                .nickname(email) //원래 nickname + n번째 유저
+                .nickname(numOfUser + "번째 유저") //원래 nickname + n번째 유저
                 .build();
         member.addMemberRole(MemberRole.USER);
 
