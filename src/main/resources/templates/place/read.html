@@ -37,9 +37,8 @@
         justify-content: center;
         /* align-items: center; 자식 요소를 세로 가운데 정렬 */
         height: 100vh; /* '-webkit-fill-available'이 유효하지 않을 경우를 대비 */
-        /*height: -webkit-fill-available;*/
+        height: -webkit-fill-available;
         font-family: 'Jua', sans-serif;
-        width: 300px;
       }
       /*버튼 클릭 시 생기는 테두리 제거하기*/
       *:focus { border:none; outline:none; }
@@ -51,6 +50,11 @@
         width: 100%;
         text-align: center;
         background-color: #FFFCF0;
+      }
+      .form-group {
+        text-align: center;
+        align-content: center;
+        justify-content: center;
       }
       .font {
         font-family: 'Jua', sans-serif;
@@ -94,24 +98,26 @@
         height: 20px;
       }
       .map {
-        width: 275px;
-        height: 130px;
-        margin-right: 14px;
+        width: 330px;
+        height: 156px;
+        margin: 0 auto;
+        margin-bottom: 10px;
       }
       .content_table {
-        width: 275px;
+        width: 330px;
         margin-top: 10px;
-        margin-right: 7.2px;
+        margin: 0 auto;
       }
       .res_img {
-        width: 130px;
-        height: 130px;
+        width: 156px;
+        height: 156px;
         border-radius: 5%;
       }
       .content {
-        width: 135px;
-        height: 130px;
-        margin-left: 5px;
+        width: 160px;
+        height: 156px;
+        margin: 0 auto;
+        margin-top: 10px;
         background: #DEDCEE;
         border-radius: 15%;
       }
@@ -145,18 +151,18 @@
         outline: none;
       }
       hr {
-        border: 4px solid #6A60A9;
+        border: 3px solid #6A60A9;
       }
       .re_back {
-        width: 300px;
-        margin-left: -15px;
+        width: 360px;
+        margin: 0 auto;
         background-color: #FFFCF0;
         padding-bottom: 9px;
       }
       /*리뷰 table을 포함하는 div*/
       .re_div {
-        width: 276px;
-        margin-left: 13px;
+        width: 331px;
+        margin: 0 auto;
         background-color: #FFFCF0;
         border: 3px solid #6A60A9;
         border-radius: 20px 20px 20px 20px;
@@ -164,24 +170,24 @@
       }
       /*리뷰 전체를 포함하는 table*/
       .re_table {
-        width: 258px;
+        width: 309px;
         /*꼭 여기에 배경 색상 넣어야 함*/
         background-color: #FFFCF0;
       }
       /*리뷰 이미지*/
       .review_img {
-        width: 78px;
-        height: 78px;
+        width: 93px;
+        height: 93px;
       }
       /*닉네임, 별점, 리뷰 내용, 날짜를 포함하는 table*/
       .sub_table1 {
-        width: 165px;
+        width: 198px;
         margin-left: 9px;
         margin-top: 9px;
       }
       /*닉네임, 별점, 리뷰 내용, 날짜를 포함하는 table*/
       .sub_table2 {
-        width: 253.8px;
+        width: 303px;
         margin-top: 6px;
         margin-left: 9px;
       }
@@ -201,20 +207,25 @@
       .review_background {
         background-color: #FFFCF0;
         margin-top: 6px;
-        margin-left: 7.8px;
+        margin-left: 9px;
+      }
+      .reviewList {
+        background-color: #FFFCF0;
+        width: 500px;
+        margin: 0 auto;
+        margin-left: -15px;
       }
       .uploadResult {
-
         margin: 0;
         padding: 0;
       }
       .review_img2 {
-        width: 126px;
-        height: 78px;
+        width: 151px;
+        height: 94px;
       }
       .review_img3 {
-        width: 84px;
-        height: 84px;
+        width: 101px;
+        height: 101px;
       }
       .img_margin {
         margin: 0px;
@@ -234,31 +245,31 @@
         display: inline;
       }
       .star {
-        width: 7.8px;
-        height: 7.8px;
-        margin-bottom: 2.4px;
+        width: 9.36px;
+        height: 9.36px;
+        margin-bottom: 2.88px;
       }
       .isRecent {
-        width: 13.8px;
-        height: 13.8px;
+        width: 17px;
+        height: 17px;
         margin-right: 0.6px;
-        margin-bottom: 1.8px;
+        margin-bottom: 2px;
       }
       .suryong_img {
-        width: 36px;
-        height: 36px;
-        margin-bottom: -29px;
-        margin-left:70px;
+        width: 60px;
+        height: 60px;
+        margin-bottom: -35.8px;
+        margin-left: 78px;
       }
       pre {
-        margin-top: 3.6px;
-        font-size: 3.6px;
+        margin-top: 4.3px;
+        font-size: 4.3px;
         text-align: center;
       }
       .copy_right {
         background-color: #FFFCF0;
-        width: 300px;
-        margin-top: -9px;
+        width: 500px;
+        margin-top: -11px;
         margin-left: -16px;
         height: 18px;
       }
@@ -428,7 +439,7 @@
                   readOnly: true
                 })
 
-                str += '    <div class="re_back"><div class="re_div" data-reviewId=' + review.reviewId + ' data-mid=' + review.nickname + '>';
+                str += '    <div class="re_yellow"><div class="re_back"><div class="re_div" data-reviewId=' + review.reviewId + ' data-mid=' + review.nickname + '>';
 
                 img_length = review.imageDTOList.length;
 
@@ -552,7 +563,7 @@
                     str += '    <tr class="re_con_tr"><td class="font re_content">' + review.text + '</td></tr>';
                     // 리뷰 작성 시간
                     str +=     '<tr class="re_con"><td class="font re_time">' + isRecent + formatTime(review.regDate) + '</td>';
-                    str += '</table></td></tr></table></div></div>';
+                    str += '</table></td></tr></table></div></div></div>';
                   }
                 }
                 $(".reviewList").html(str);
