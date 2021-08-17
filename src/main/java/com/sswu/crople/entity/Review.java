@@ -19,6 +19,7 @@ public class Review extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     private Place place;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 

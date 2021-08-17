@@ -31,6 +31,10 @@ public class CropleOAuthUserDetailsService extends DefaultOAuth2UserService {
 
         OAuth2User oAuth2User = super.loadUser(userRequest);
 
+        //34~36 내가 추가함
+        oAuth2User.getAttributes().forEach((k,v)->{
+            log.info(k+":"+v);
+        });
         String email = null;
 
         if(clientName.equals("Google")){
@@ -49,9 +53,9 @@ public class CropleOAuthUserDetailsService extends DefaultOAuth2UserService {
             return result.get();
         }
 
-        Member member = Member.builder()
+        Member member = Member.builder()  //email(email)내가 추가함
                 .email(email)
-                .nickname(numOfUser++ + "번째 유저")
+                .nickname(email) //원래 nickname + n번째 유저
                 .build();
         member.addMemberRole(MemberRole.USER);
 

@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import java.util.Collection;
+import java.util.Map;
 
 @Log4j2
 @Setter
@@ -19,6 +20,16 @@ public class MemberAuthDTO extends User {
 
     private String nickname;
 
+    //22~30 내가 수정함.
+    private Map<String, Object> attr;
+    public MemberAuthDTO(
+            String username,
+            String password,
+            Collection<? extends GrantedAuthority> authorities, Map<String,Object> attr){
+        this(username, password,authorities);
+        this.attr=attr;
+    }
+
     public MemberAuthDTO(
             String username,
             String password,
@@ -26,5 +37,9 @@ public class MemberAuthDTO extends User {
 
         super(username, password, authorities);
         this.email = username;
+    }
+
+    public Map<String,Object> getAttributes(){
+        return this.attr;
     }
 }
