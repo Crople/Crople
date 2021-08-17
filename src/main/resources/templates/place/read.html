@@ -30,13 +30,16 @@
     </head>
 
     <style>
+      html {
+        height: auto;
+      }
       body {
         background-color: #dddddd;
         margin: 0 auto; /* 브라우저 자체 기본 margin 없애기 */
         display: flex;
         justify-content: center;
         /* align-items: center; 자식 요소를 세로 가운데 정렬 */
-        height: 100vh; /* '-webkit-fill-available'이 유효하지 않을 경우를 대비 */
+        height: auto; /* '-webkit-fill-available'이 유효하지 않을 경우를 대비 */
         height: -webkit-fill-available;
         font-family: 'Jua', sans-serif;
       }
@@ -44,7 +47,7 @@
       *:focus { border:none; outline:none; }
       /*전체를 감싸는 div 태그의 id*/
       #wrap {
-        height: 100vh;
+        height: auto;
         margin: 0 auto;
         max-width: 500px;
         width: 100%;
@@ -153,16 +156,11 @@
       hr {
         border: 3px solid #6A60A9;
       }
-      .re_back {
-        width: 360px;
-        margin: 0 auto;
-        background-color: #FFFCF0;
-        padding-bottom: 9px;
-      }
       /*리뷰 table을 포함하는 div*/
       .re_div {
-        width: 331px;
+        width: 300px;
         margin: 0 auto;
+        margin-top: 10px;
         background-color: #FFFCF0;
         border: 3px solid #6A60A9;
         border-radius: 20px 20px 20px 20px;
@@ -170,7 +168,7 @@
       }
       /*리뷰 전체를 포함하는 table*/
       .re_table {
-        width: 309px;
+        width: 280px;
         /*꼭 여기에 배경 색상 넣어야 함*/
         background-color: #FFFCF0;
       }
@@ -181,13 +179,13 @@
       }
       /*닉네임, 별점, 리뷰 내용, 날짜를 포함하는 table*/
       .sub_table1 {
-        width: 198px;
+        width: 150px;
         margin-left: 9px;
         margin-top: 9px;
       }
       /*닉네임, 별점, 리뷰 내용, 날짜를 포함하는 table*/
       .sub_table2 {
-        width: 303px;
+        width: 280px;
         margin-top: 6px;
         margin-left: 9px;
       }
@@ -211,21 +209,20 @@
       }
       .reviewList {
         background-color: #FFFCF0;
-        width: 500px;
+        width: 300px;
         margin: 0 auto;
-        margin-left: -15px;
       }
       .uploadResult {
         margin: 0;
         padding: 0;
       }
       .review_img2 {
-        width: 151px;
+        width: 140px;
         height: 94px;
       }
       .review_img3 {
-        width: 101px;
-        height: 101px;
+        width: 90px;
+        height: 90px;
       }
       .img_margin {
         margin: 0px;
@@ -265,13 +262,6 @@
         margin-top: 4.3px;
         font-size: 4.3px;
         text-align: center;
-      }
-      .copy_right {
-        background-color: #FFFCF0;
-        width: 500px;
-        margin-top: -11px;
-        margin-left: -16px;
-        height: 18px;
       }
       td {
         text-align: left;
@@ -355,7 +345,7 @@
       </div>
       <hr/>
 
-      <div class="list-group reviewList">
+      <div class="reviewList">
 
       </div>
 
@@ -439,7 +429,7 @@
                   readOnly: true
                 })
 
-                str += '    <div class="re_yellow"><div class="re_back"><div class="re_div" data-reviewId=' + review.reviewId + ' data-mid=' + review.nickname + '>';
+                str += '    <div class="re_div" data-reviewId=' + review.reviewId + ' data-mid=' + review.nickname + '>';
 
                 img_length = review.imageDTOList.length;
 
@@ -449,7 +439,7 @@
                   var email_length = review.email.length;
                   var isSungshin = review.email.substr(email_length-14, 14);
                   if (isSungshin == "sungshin.ac.kr") {
-                    isSungshin = '<span class="sung_pick">   성신픽</span>' + '<img class="suryong"' +
+                    isSungshin = '<span class="sung_pick">   성신여대생</span>' + '<img class="suryong"' +
                             // 'src="https://image.flaticon.com/icons/png/128/2528/2528652.png">';
                             'src="https://crople-bucket.s3.ap-northeast-2.amazonaws.com//resource/%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8_%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%82%E1%85%B3%E1%86%AB_%E1%84%8B%E1%85%A1%E1%84%90%E1%85%B3%E1%84%8B%E1%85%AF%E1%84%8F%E1%85%B3+2.png">';
                   }
@@ -494,7 +484,7 @@
                     str += '    <tr class="re_con_tr"><td class="font re_content">' + review.text + '</td></tr>';
                     // 리뷰 작성 시간
                     str +=     '<tr class="re_con"><td class="font re_time">' + isRecent + formatTime(review.regDate) + '</td>';
-                    str += '</table></td></tr></table></div></div>';
+                    str += '</table></td></tr></table>';
                   }
 
                   if (img_length == 1) {
@@ -523,7 +513,7 @@
                     str += '    <tr class="re_con_tr"><td class="font re_content">' + review.text + '</td></tr>';
                     // 리뷰 작성 시간
                     str +=     '<tr class="re_con"><td class="font re_time">' + isRecent + formatTime(review.regDate) + '</td>';
-                    str += '</table></td></tr></table></div></div>';
+                    str += '</table></td></tr></table></div>';
                   }
                   // 리뷰 사진이 두 장일 때
                   if (img_length == 2) {
@@ -543,7 +533,7 @@
                     str += '    <tr class="re_con_tr"><td class="font re_content">' + review.text + '</td></tr>';
                     // 리뷰 작성 시간
                     str +=     '<tr class="re_con"><td class="font re_time">' + isRecent + formatTime(review.regDate) + '</td>';
-                    str += '</table></td></tr></table></div></div>';
+                    str += '</table></td></tr></table></div>';
                   }
                   // 리뷰 사진이 세 장일 때
                   if (img_length == 3) {
@@ -563,7 +553,7 @@
                     str += '    <tr class="re_con_tr"><td class="font re_content">' + review.text + '</td></tr>';
                     // 리뷰 작성 시간
                     str +=     '<tr class="re_con"><td class="font re_time">' + isRecent + formatTime(review.regDate) + '</td>';
-                    str += '</table></td></tr></table></div></div></div>';
+                    str += '</table></td></tr></table></div></div>';
                   }
                 }
                 $(".reviewList").html(str);
