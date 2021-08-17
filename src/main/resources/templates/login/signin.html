@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>CROPLE LOGIN</title>
+  <style>
+    html {
+      /*height: -webkit-fill-available;*/
+    }
+
+    body {
+      background-color: #dddddd;
+      margin: 0px; /* 브라우저 자체 기본 margin 없애기 */
+      display: flex;
+      justify-content: center;
+      /* align-items: center; 자식 요소를 세로 가운데 정렬 */
+      height: 100vh; /* '-webkit-fill-available'이 유효하지 않을 경우를 대비 */
+      /*height: -webkit-fill-available;*/
+      font-family: 'Jua', sans-serif;
+    }
+
+    #wrapper {
+      height: 100vh;
+      margin: 0 auto;
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      background-color: #FFFCF0;
+    }
+
+    header {
+      height: 40px;
+      padding-top: 0px;
+      margin-top: 0;
+      margin-left: 0;
+      margin-right: 0;
+      text-align: center;
+      align-items: center;
+      background-color: #B0A0DC;
+      padding-left: 0px;
+    }
+
+    #loginbtn {
+      color: black;
+      background-color: #FBD14B;
+      border-radius: 10px;
+      width: 60px;
+      height: 30px;
+      border: 0;
+    }
+
+    #loginbtn:hover {
+      color: rgba(255, 255, 255, 0.85);
+      box-shadow: #6A60A9 0 0px 0px 40px inset;
+    }
+
+    #loginform > input {
+      background-color: #DEDCEE;
+      border: 0;
+      height: 25px;
+      width: 170px;
+      outline-color: #6A60A9;
+    }
+
+    .d-flex > a {
+      font-size: small;
+    }
+
+    #googlebtn {
+      color: black;
+      background-color: #FBD14B;
+      border-radius: 10px;
+      width: 200px;
+      height: 40px;
+      border: 0;
+    }
+
+    #googlebtn:hover {
+      color: rgba(255, 255, 255, 0.85);
+      box-shadow: #6A60A9 0 0px 0px 40px inset;
+    }
+    .gloginimg{
+      float: left;
+      margin-left: 50px;
+    }
+    .glogintext{
+      float: right;
+      margin-right: 40px;
+    }
+
+  </style>
+  <!--폰트-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="d-flex" id="wrapper">
+  <h1>크로플</h1>
+  <h3>Crytal Road Places </h3>
+
+
+  <hr>
+  <br>
+
+  <form method="post" id="loginform">
+    <img src="https://crople-bucket.s3.ap-northeast-2.amazonaws.com//resource/%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8_%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%82%E1%85%B3%E1%86%AB_%E1%84%8B%E1%85%A1%E1%84%90%E1%85%B3%E1%84%8B%E1%85%AF%E1%84%8F%E1%85%B3+2.png"
+         width="50"><br><br>
+    일반 회원은 구글 로그인을 이용해주세요.<br><br>
+    <input type="text" name="username" placeholder=" email"><br><br>
+    <input type="password" name="password" placeholder=" 비밀번호"><br><br>
+    <button type="submit" id="loginbtn">로그인</button>
+    <br><br>
+    <!--        <img src="https://guchae.com/assets/imgs/sns_login_google.png" width="200"><br>-->
+
+
+    <button type="button" id="googlebtn" onclick="location.href='/oauth2/authorization/google' ">
+      <div class="gloginimg" ><img src="https://image.flaticon.com/icons/png/128/2702/2702602.png" width="20"></div>
+      <div class="glogintext">구글 로그인</div></button>
+
+
+  </form>
+  <br>
+
+</div>
+
+<footer>
+
+</footer>
+</body>
+</html>
