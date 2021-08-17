@@ -37,16 +37,16 @@ public class PlaceRepositoryTests {
 //        imageRepository.save(placeImage);
     }
 
-    @Test
-    public void testListPage(){
-        PageRequest pageRequest = PageRequest.of(0, 10, Sort.by(Sort.Direction.DESC, "placeId"));
-
-        Page<Object[]> result = placeRepository.getListPage(pageRequest);
-
-        for(Object[] objects : result.getContent()){
-            System.out.println(Arrays.toString(objects));
-        }
-    }
+//    @Test
+//    public void testListPage(){
+//        PageRequest pageRequest = PageRequest.of(0, 10, Sort.by(Sort.Direction.DESC, "placeId"));
+//
+//        Page<Object[]> result = placeRepository.getListPage(pageRequest);
+//
+//        for(Object[] objects : result.getContent()){
+//            System.out.println(Arrays.toString(objects));
+//        }
+//    }
 
 //    @Test
 //    public void testGetPlaceWithAll(){

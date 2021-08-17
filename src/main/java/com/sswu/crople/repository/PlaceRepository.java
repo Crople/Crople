@@ -10,9 +10,9 @@ import java.util.List;
 
 public interface PlaceRepository extends JpaRepository<Place, Long> {
 
-    @Query("select p, avg(coalesce(r.grade, 0)), count(distinct r) from Place p " +
-            "left outer join Review r on r.place = p group by p " )
-    Page<Object[]> getListPage(Pageable pageable);
+    @Query("select p, avg(coalesce(r.grade, 0)), count(distinct r) from Place p" +
+            " left outer join Review r on r.place = p where p.type=:type group by p " )
+    Page<Object[]> getListPage(String type, Pageable pageable);
 
     @Query("select p, avg(coalesce(r.grade, 0)), count(r) from Place p" +
             " left outer join Review r on r.place = p where p.placeId = :placeId" )
