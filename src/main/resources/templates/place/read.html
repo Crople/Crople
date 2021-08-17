@@ -247,6 +247,7 @@
       .star {
         width: 13px;
         height: 13px;
+        margin-bottom: 4px;
       }
       .isRecent {
         width: 23px;
@@ -432,6 +433,9 @@
                     isSungshin = ' ';
 
                   var star = '<div class="star_div">';
+                  if (review.grade == 0) {
+                    star += '<img class="star" src="https://image.flaticon.com/icons/png/128/1828/1828665.png">'
+                  }
                   // 별점 등급을 별 사진으로 대체
                   for (var i=0; i < review.grade; i++) {
                     star += '<img class="star" src="https://image.flaticon.com/icons/png/128/3839/3839663.png">'
