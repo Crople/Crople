@@ -50,9 +50,7 @@ public class ReviewController {
         // PlaceService의 register 메소드를 이용해 place를 등록
         Long reviewId = reviewService.register(reviewDTO);
 
-        redirectAttributes.addFlashAttribute("msg", reviewId);
-
         // 이미지
-        return new RedirectView("/place/read?placeId="+placeId+"&page="+page);
+        return new RedirectView("/place/read?placeId="+reviewDTO.getPlaceId());
     }
 }

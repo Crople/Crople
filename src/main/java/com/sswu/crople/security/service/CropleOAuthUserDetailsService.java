@@ -55,7 +55,7 @@ public class CropleOAuthUserDetailsService extends DefaultOAuth2UserService {
 
         Member member = Member.builder()  //email(email)내가 추가함
                 .email(email)
-                .nickname(numOfUser + "번째 유저") //원래 nickname + n번째 유저
+                .nickname(numOfUser++ + "번째 유저") //원래 nickname + n번째 유저
                 .build();
         member.addMemberRole(MemberRole.USER);
 
